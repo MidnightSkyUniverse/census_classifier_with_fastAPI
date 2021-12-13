@@ -39,4 +39,5 @@ jobs:
         aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{secrets.aws_region}}
     - uses: actions/checkout@v2
-   # - uses: interactive/setup-dvc@v1
+    - uses: interactive/setup-dvc@v1
+    - run: dvc pull
