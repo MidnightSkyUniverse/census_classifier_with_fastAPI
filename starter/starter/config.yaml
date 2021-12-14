@@ -1,0 +1,10 @@
+main:
+  project_name: census
+  experiment_name: dev
+modeling:
+  n_splits: 10
+  shuffle: True
+  random_state: 1
+data:
+  cleaned_data: '../data/cleaned_data.csv'
+  raw_data: '../data/census.csv'
