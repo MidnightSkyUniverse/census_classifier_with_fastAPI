@@ -40,5 +40,6 @@ jobs:
         aws-region: ${{secrets.aws_region}}
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
+    - run: pip install 'dvc[s3]'
     - run: dvc remote add -d s3-bucket s3://uda3/storage
     - run: dvc pull
