@@ -1,6 +1,7 @@
 main:
   project_name: census
   experiment_name: dev
+  model_pth: '../model/' 
 modeling:
   n_splits: 10
   shuffle: True
