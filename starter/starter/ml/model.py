@@ -3,10 +3,10 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
-from sklearn.metrics import plot_roc_curve
+from sklearn import metrics
 
 import joblib
-
+from numpy import mean
 
 
 
@@ -116,7 +116,7 @@ def inference(model, X_test):
     preds = model.predict(X_test)
     return preds
 
-def roc_curve_plot(model_1, model_2, model_3,X_test,y_test,pth):
+def roc_curve_plot(model_1, model_2, test_y, preds_1, preds_2,pth):
     '''
         creates and stores the feature importances in pth
         input:
@@ -125,10 +125,24 @@ def roc_curve_plot(model_1, model_2, model_3,X_test,y_test,pth):
         output:
              None
     '''
-    ax = plt.gca()
-    fig = plot_roc_curve(model_1, X_test, y_test, ax=ax, alpha=0.8)
-    fig = plot_roc_curve(model_2, X_test, y_test, ax=ax, alpha=0.8)
-    fig = plot_roc_curve(model_3, X_test, y_test, ax=ax, alpha=0.8)
+
+    fpr, tpr, thresholds = metrics.roc_curve(test_y, preds_1)
+    roc_auc = metrics.auc(fpr, tpr)
+    fig = metrics.RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc, estimator_name='LR')
+
+    fpr, tpr, thresholds = metrics.roc_curve(test_y, preds_2)
+    roc_auc = metrics.auc(fpr, tpr)
+    fig = metrics.RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc, estimator_name='R')
+
     plt.savefig(pth, bbox_inches='tight')
     plt.clf()
-    #lrc_plot = plot_roc_curve(model_2, X_test, y_test, ax=ax, alpha=0.8)
+
+
+
+def mean_calculation(metrics):
+
+    # Select model with highest precision and save it
+    precision, recall, fbeta = zip (*metrics)
+    return mean(precision), mean(recall), mean(fbeta)
+
+    
