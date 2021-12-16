@@ -9,9 +9,7 @@ dependencies:
   - pytest =6
   - pip:
     - awscli==1.22.23
-    - aiobotocore==2.0.1
-    - botocore
     - dvc==2.9.2
     - dvc[s3]
     - fastapi==0.70.1
-    - uvicorn==0.16.0
+    - uvicorn
