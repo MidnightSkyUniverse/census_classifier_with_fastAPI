@@ -9,7 +9,7 @@ dependencies:
   - pytest =6
   - pip:
     - awscli==1.22.23
-    - dvc==2.9.2
+    - dvc
     - dvc[s3]
     - fastapi==0.70.1
     - uvicorn
