@@ -1,0 +1,3 @@
+[2021-12-14 19:59:23,550][root][INFO] - importing data from cleaned_data.csv
+[2021-12-14 19:59:23,550][root][INFO] - /home/admin/ml-proj-3/starter/starter
+[2021-12-14 19:59:23,620][root][INFO] - Prepare cross validation with Kfold

@@ -1,0 +1,24 @@
+[2021-12-15 10:38:04,142][root][INFO] - importing data from cleaned_data.csv
+[2021-12-15 10:38:04,218][root][INFO] - Prepare cross validation with Kfold
+[2021-12-15 10:38:04,218][root][INFO] - Split the data into X_train and y_train
+[2021-12-15 10:38:04,468][root][INFO] - Enumerating through k-folds
+[2021-12-15 10:38:04,492][root][INFO] - train the model
+[2021-12-15 10:38:11,694][root][INFO] - inference
+[2021-12-15 10:38:14,359][root][INFO] - train the model
+[2021-12-15 10:38:21,467][root][INFO] - inference
+[2021-12-15 10:38:24,131][root][INFO] - train the model
+[2021-12-15 10:38:31,501][root][INFO] - inference
+[2021-12-15 10:38:34,137][root][INFO] - train the model
+[2021-12-15 10:38:41,089][root][INFO] - inference
+[2021-12-15 10:38:43,702][root][INFO] - train the model
+[2021-12-15 10:38:50,733][root][INFO] - inference
+[2021-12-15 10:38:53,297][root][INFO] - train the model
+[2021-12-15 10:39:00,617][root][INFO] - inference
+[2021-12-15 10:39:03,191][root][INFO] - train the model
+[2021-12-15 10:39:10,625][root][INFO] - inference
+[2021-12-15 10:39:13,455][root][INFO] - train the model
+[2021-12-15 10:39:21,035][root][INFO] - inference
+[2021-12-15 10:39:23,851][root][INFO] - train the model
+[2021-12-15 10:39:31,439][root][INFO] - inference
+[2021-12-15 10:39:34,392][root][INFO] - train the model
+[2021-12-15 10:39:42,160][root][INFO] - inference

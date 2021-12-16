@@ -1,0 +1,54 @@
+[2021-12-14 20:03:59,876][root][INFO] - importing data from cleaned_data.csv
+[2021-12-14 20:03:59,946][root][INFO] - Prepare cross validation with Kfold
+[2021-12-14 20:03:59,947][root][INFO] - Split the data into X_train and y_train
+[2021-12-14 20:04:00,179][root][INFO] - Enumerating through k-folds
+[2021-12-14 20:04:00,197][root][INFO] - train the model
+[2021-12-14 20:04:00,201][root][INFO] - inference
+[2021-12-14 20:04:03,035][root][INFO] - precision: 0.5691609977324263
+[2021-12-14 20:04:03,035][root][INFO] - recall: 0.33873144399460187
+[2021-12-14 20:04:03,035][root][INFO] - fbeta: 0.42470389170896783
+[2021-12-14 20:04:03,052][root][INFO] - train the model
+[2021-12-14 20:04:03,057][root][INFO] - inference
+[2021-12-14 20:04:05,683][root][INFO] - precision: 0.5574162679425837
+[2021-12-14 20:04:05,683][root][INFO] - recall: 0.31233243967828417
+[2021-12-14 20:04:05,684][root][INFO] - fbeta: 0.4003436426116838
+[2021-12-14 20:04:05,690][root][INFO] - train the model
+[2021-12-14 20:04:05,695][root][INFO] - inference
+[2021-12-14 20:04:08,204][root][INFO] - precision: 0.5300429184549357
+[2021-12-14 20:04:08,204][root][INFO] - recall: 0.337431693989071
+[2021-12-14 20:04:08,204][root][INFO] - fbeta: 0.41235392320534225
+[2021-12-14 20:04:08,211][root][INFO] - train the model
+[2021-12-14 20:04:08,216][root][INFO] - inference
+[2021-12-14 20:04:10,976][root][INFO] - precision: 0.579185520361991
+[2021-12-14 20:04:10,976][root][INFO] - recall: 0.3286264441591784
+[2021-12-14 20:04:10,976][root][INFO] - fbeta: 0.41932841932841936
+[2021-12-14 20:04:10,983][root][INFO] - train the model
+[2021-12-14 20:04:10,988][root][INFO] - inference
+[2021-12-14 20:04:13,630][root][INFO] - precision: 0.547808764940239
+[2021-12-14 20:04:13,630][root][INFO] - recall: 0.34076827757125155
+[2021-12-14 20:04:13,630][root][INFO] - fbeta: 0.42016806722689076
+[2021-12-14 20:04:13,637][root][INFO] - train the model
+[2021-12-14 20:04:13,642][root][INFO] - inference
+[2021-12-14 20:04:16,130][root][INFO] - precision: 0.5476190476190477
+[2021-12-14 20:04:16,130][root][INFO] - recall: 0.3182389937106918
+[2021-12-14 20:04:16,130][root][INFO] - fbeta: 0.4025457438345266
+[2021-12-14 20:04:16,137][root][INFO] - train the model
+[2021-12-14 20:04:16,142][root][INFO] - inference
+[2021-12-14 20:04:18,755][root][INFO] - precision: 0.5251046025104602
+[2021-12-14 20:04:18,756][root][INFO] - recall: 0.3193384223918575
+[2021-12-14 20:04:18,756][root][INFO] - fbeta: 0.39715189873417717
+[2021-12-14 20:04:18,763][root][INFO] - train the model
+[2021-12-14 20:04:18,768][root][INFO] - inference
+[2021-12-14 20:04:21,264][root][INFO] - precision: 0.5894495412844036
+[2021-12-14 20:04:21,265][root][INFO] - recall: 0.3141809290953545
+[2021-12-14 20:04:21,265][root][INFO] - fbeta: 0.40988835725677825
+[2021-12-14 20:04:21,272][root][INFO] - train the model
+[2021-12-14 20:04:21,277][root][INFO] - inference
+[2021-12-14 20:04:23,852][root][INFO] - precision: 0.5652173913043478
+[2021-12-14 20:04:23,853][root][INFO] - recall: 0.32338308457711445
+[2021-12-14 20:04:23,853][root][INFO] - fbeta: 0.4113924050632911
+[2021-12-14 20:04:23,860][root][INFO] - train the model
+[2021-12-14 20:04:23,865][root][INFO] - inference
+[2021-12-14 20:04:26,464][root][INFO] - precision: 0.6004228329809725
+[2021-12-14 20:04:26,465][root][INFO] - recall: 0.34093637454981995
+[2021-12-14 20:04:26,465][root][INFO] - fbeta: 0.4349157733537519

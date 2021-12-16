@@ -1,0 +1,5 @@
+[2021-12-15 15:20:45,314][root][INFO] - importing data from cleaned_data.csv
+[2021-12-15 15:20:45,407][root][INFO] - Prepare cross validation with Kfold
+[2021-12-15 15:20:45,407][root][INFO] - Split the data into X_train and y_train
+[2021-12-15 15:20:45,695][root][INFO] - Enumerating through k-folds
+[2021-12-15 15:21:43,931][root][INFO] - Model KNeighbours mean values

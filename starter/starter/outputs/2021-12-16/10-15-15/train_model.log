@@ -1,0 +1,7 @@
+[2021-12-16 10:15:15,701][root][INFO] - importing data from clean_data.csv
+[2021-12-16 10:15:15,824][root][INFO] - Encode the data
+[2021-12-16 10:15:16,074][root][INFO] - Enumerating through k-folds
+[2021-12-16 10:15:38,363][root][INFO] - Model RandomForestmean mean values for {cfg.modeling.n_splits} runs
+[2021-12-16 10:15:38,363][root][INFO] - Precision: 0.7262074986795559'; Recall: 0.6195175451210128; Fbeta: 0.6686000662611824
+[2021-12-16 10:15:38,363][root][INFO] - Train RandomForest on full data set
+[2021-12-16 10:15:44,466][root][INFO] - Full dataset run: precision: 0.7418639053254438'; recall: 0.6384468491406747; fbeta: 0.6862812179267875

@@ -57,11 +57,11 @@ def process_data(
         encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
         lb = LabelBinarizer()
         X_categorical = encoder.fit_transform(X_categorical)
-        y = lb.fit_transform(y.values).ravel()
+        y = lb.fit_transform(y.values).ravel() #Return the flattened underlying data as an ndarray.
     else:
         X_categorical = encoder.transform(X_categorical)
         try:
-            y = lb.transform(y.values).ravel()
+            y = lb.transform(y.values).ravel() 
         # Catch the case where y is None because we're doing inference.
         except AttributeError:
             pass

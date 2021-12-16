@@ -1,7 +1,6 @@
 main:
   project_name: census
   experiment_name: dev
-  model_pth: '../model/' 
 modeling:
   n_splits: 5 
   shuffle: True
@@ -15,5 +14,7 @@ metrics:
   zero_division: 1
 data:
   dir: '../data/'
-  cleaned_data: 'cleaned_data.csv'
+  clean_data: 'clean_data.csv'
   raw_data: 'census.csv'
+  test_data: 'test_data.csv'
+  model_pth: '../model/model.pkl' 

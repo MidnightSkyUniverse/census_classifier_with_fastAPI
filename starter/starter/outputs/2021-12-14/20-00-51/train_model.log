@@ -1,0 +1,2 @@
+[2021-12-14 20:00:51,939][root][INFO] - importing data from cleaned_data.csv
+[2021-12-14 20:00:52,008][root][INFO] - Prepare cross validation with Kfold

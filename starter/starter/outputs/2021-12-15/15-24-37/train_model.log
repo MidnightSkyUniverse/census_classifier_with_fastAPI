@@ -1,0 +1,10 @@
+[2021-12-15 15:24:37,727][root][INFO] - importing data from cleaned_data.csv
+[2021-12-15 15:24:37,797][root][INFO] - Prepare cross validation with Kfold
+[2021-12-15 15:24:37,797][root][INFO] - Split the data into X_train and y_train
+[2021-12-15 15:24:38,032][root][INFO] - Enumerating through k-folds
+[2021-12-15 15:25:35,723][root][INFO] - Model KNeighbours mean values
+[2021-12-15 15:25:35,723][root][INFO] - Precisnion: 0.560741535838488'; Recall: 0.32219175408265; Fbeta: 0.40918846689750216
+[2021-12-15 15:25:35,724][root][INFO] - Model LogisticRegression mean values
+[2021-12-15 15:25:35,724][root][INFO] - Precisnion: 0.7162624873351804'; Recall: 0.26256172392731075; Fbeta: 0.3841565378632317
+[2021-12-15 15:25:35,724][root][INFO] - Model RandomForestmean values
+[2021-12-15 15:25:35,725][root][INFO] - Precisnion: 0.7321859178644796'; Recall: 0.6223097318285925; Fbeta: 0.6726377263232372

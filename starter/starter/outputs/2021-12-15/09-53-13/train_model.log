@@ -1,0 +1,6 @@
+[2021-12-15 09:53:13,457][root][INFO] - importing data from cleaned_data.csv
+[2021-12-15 09:53:13,548][root][INFO] - Prepare cross validation with Kfold
+[2021-12-15 09:53:13,548][root][INFO] - Split the data into X_train and y_train
+[2021-12-15 09:53:13,827][root][INFO] - Enumerating through k-folds
+[2021-12-15 09:53:13,857][root][INFO] - train the model
+[2021-12-15 09:53:13,862][root][INFO] - inference

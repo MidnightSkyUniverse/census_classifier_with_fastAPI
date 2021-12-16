@@ -1,0 +1,31 @@
+[2021-12-14 20:03:21,771][root][INFO] - importing data from cleaned_data.csv
+[2021-12-14 20:03:21,838][root][INFO] - Prepare cross validation with Kfold
+[2021-12-14 20:03:21,838][root][INFO] - Split the data into X_train and y_train
+[2021-12-14 20:03:22,097][root][INFO] - Enumerating through k-folds
+[2021-12-14 20:03:22,126][root][INFO] - train the model
+[2021-12-14 20:03:22,130][root][INFO] - inference
+[2021-12-14 20:03:26,578][root][INFO] - precision: {precision}
+[2021-12-14 20:03:26,579][root][INFO] - recall: {recall}
+[2021-12-14 20:03:26,579][root][INFO] - fbeta: {fbeta}
+[2021-12-14 20:03:26,596][root][INFO] - train the model
+[2021-12-14 20:03:26,601][root][INFO] - inference
+[2021-12-14 20:03:29,213][root][INFO] - precision: {precision}
+[2021-12-14 20:03:29,213][root][INFO] - recall: {recall}
+[2021-12-14 20:03:29,213][root][INFO] - fbeta: {fbeta}
+[2021-12-14 20:03:29,220][root][INFO] - train the model
+[2021-12-14 20:03:29,225][root][INFO] - inference
+[2021-12-14 20:03:31,757][root][INFO] - precision: {precision}
+[2021-12-14 20:03:31,757][root][INFO] - recall: {recall}
+[2021-12-14 20:03:31,758][root][INFO] - fbeta: {fbeta}
+[2021-12-14 20:03:31,764][root][INFO] - train the model
+[2021-12-14 20:03:31,769][root][INFO] - inference
+[2021-12-14 20:03:34,551][root][INFO] - precision: {precision}
+[2021-12-14 20:03:34,551][root][INFO] - recall: {recall}
+[2021-12-14 20:03:34,551][root][INFO] - fbeta: {fbeta}
+[2021-12-14 20:03:34,562][root][INFO] - train the model
+[2021-12-14 20:03:34,567][root][INFO] - inference
+[2021-12-14 20:03:37,053][root][INFO] - precision: {precision}
+[2021-12-14 20:03:37,054][root][INFO] - recall: {recall}
+[2021-12-14 20:03:37,054][root][INFO] - fbeta: {fbeta}
+[2021-12-14 20:03:37,061][root][INFO] - train the model
+[2021-12-14 20:03:37,065][root][INFO] - inference

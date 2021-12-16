@@ -116,7 +116,7 @@ def inference(model, X_test):
     preds = model.predict(X_test)
     return preds
 
-def roc_curve_plot(model_1, model_2, test_y, preds_1, preds_2,pth):
+def roc_curve_plot(model, test_y, preds, pth):
     '''
         creates and stores the feature importances in pth
         input:
@@ -125,15 +125,9 @@ def roc_curve_plot(model_1, model_2, test_y, preds_1, preds_2,pth):
         output:
              None
     '''
-
-    fpr, tpr, thresholds = metrics.roc_curve(test_y, preds_1)
-    roc_auc = metrics.auc(fpr, tpr)
-    fig = metrics.RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc, estimator_name='LR')
-
-    fpr, tpr, thresholds = metrics.roc_curve(test_y, preds_2)
-    roc_auc = metrics.auc(fpr, tpr)
-    fig = metrics.RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc, estimator_name='R')
-
+    fpr, tpr, thresholds = metrics.roc_curve(test_y, preds)
+    #roc_auc = metrics.auc(fpr, tpr)
+    plt.plot(fpr,tpr,label="Random Forest")
     plt.savefig(pth, bbox_inches='tight')
     plt.clf()
 
@@ -145,4 +139,12 @@ def mean_calculation(metrics):
     precision, recall, fbeta = zip (*metrics)
     return mean(precision), mean(recall), mean(fbeta)
 
-    
+   
+def save_model(model,pth):
+    '''
+             saves model to ./models as .pkl file
+                input:
+                    model: trained model
+                    pth: path to store the model
+    '''
+    joblib.dump(model, pth)
