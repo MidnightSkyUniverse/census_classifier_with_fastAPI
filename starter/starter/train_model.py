@@ -21,17 +21,28 @@ logger = logging.getLogger()
 @hydra.main(config_path='.', config_name='config')
 def go(cfg: DictConfig):
 
+    pwd = hydra.utils.get_original_cwd()
+
     # Get the clean data
     logger.info(f"importing data from {cfg.data.clean_data}")
-    pth = f"{hydra.utils.get_original_cwd()}/{cfg.data.dir}{cfg.data.clean_data}"
-    data = pd.read_csv(pth)
+    pth = f"{hydra.utils.get_original_cwd()}/{cfg.data.clean_data}"
+    try:
+        data = pd.read_csv(pth)
+    except FileNotFoundError:
+        logger.error(f"Failed to load the file")
 
-    # Split the data into training+validation and test data that will be saved for the test
+    # Split the data into training+validation and test data for test
     trainval, test = train_test_split(data, \
                                     test_size=cfg.modeling.test_size,\
                                      random_state=cfg.modeling.random_state)
-    pth = f"{hydra.utils.get_original_cwd()}/{cfg.data.dir}{cfg.data.test_data}"
-    test.to_csv(pth)
+    
+    # Save test data in separate file
+    logger.info(f"Save the data for test to {cfg.data.test_data}")
+    pth = f"{pwd}/{cfg.data.test_data}"
+    try:
+        test.to_csv(pth)
+    except:
+        logger.error(f"Failed to save test file") 
 
     # Data encoding 
     cat_features = [
@@ -44,16 +55,27 @@ def go(cfg: DictConfig):
         "sex",
         "native-country",
     ]
-    logger.info('Encode the data')
     # Separate X and y
+    logger.info('Encode the data')
     X, y, encoder, lb = process_data(
-        data, categorical_features=cat_features, label="salary", training=True
+        trainval, categorical_features=cat_features, label="salary", training=True
     )
     
+    logger.info(f"Save encoder and lb")
+    try:
+        pth = f"{pwd}/{cfg.data.encoder_pth}"
+        #save_model(encoder,pth)
+        pth = f"{pwd}/{cfg.data.lb_pth}"
+        #save_model(lb,pth)
+    except:
+        logger.error(f"Failed to save encoder and lb") 
+    
+
+    
     # Prepare cross validation
-    kfold = KFold(n_splits=cfg['modeling']['n_splits'],
-                  shuffle=cfg['modeling']['shuffle'],
-                  random_state=cfg['modeling']['random_state'])
+    kfold = KFold(n_splits=cfg.modeling.n_splits,
+                  shuffle=cfg.modeling.shuffle,
+                  random_state=cfg.modeling.random_state)
 
     # enumerate through splits
     metrics = list()
@@ -71,7 +93,6 @@ def go(cfg: DictConfig):
         precision, recall, fbeta = compute_model_metrics(y_val, preds)
         metrics.append((precision, recall, fbeta))
 
-
     # Present mean values for kfold runs
     logger.info('Model RandomForestmean mean values for {cfg.modeling.n_splits} runs')
     precision_mean, recall_mean, fbeta_mean = mean_calculation(metrics)
@@ -87,15 +108,24 @@ def go(cfg: DictConfig):
     logger.info(f"Full dataset run: precision: {precision}'; recall: {recall}; fbeta: {fbeta}")
 
     # Save production model
-    pth = f"{hydra.utils.get_original_cwd()}/{cfg.data.model_pth}"
-    save_model(model,pth)
+    #pth = f"{hydra.utils.get_original_cwd()}/{cfg.data.model_pth}"
+    #save_model(model,pth)
     
     # Draw roc_curve
     #pth = f"{hydra.utils.get_original_cwd()}/{cfg.metrics.dir}{cfg.metrics.roc}" 
     #roc_curve_plot(model, y_val, preds,pth)
 
+    logger.info('Model performance on slices')
     # Train model on slices
-
+    for cat in cat_features:
+        unique_values = trainval[cat].unique()
+        for value in  unique_values:
+            X, y, encoder, lb = process_data(
+                trainval[trainval[cat]==value], categorical_features=cat_features, label="salary", training=True
+            )
+            preds = inference(model, X)
+            #precision, recall, fbeta = compute_model_metrics(y_val, preds)
+            #logger.info(f"[{cat}={value}]: {precision}'; recall: {recall}; fbeta: {fbeta}")
 
 if __name__ == "__main__":
     go()
