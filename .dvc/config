@@ -1,0 +1,6 @@
+[core]
+    remote = s3-remote
+    autostage = true
+['remote "s3-remote"']
+    url = s3://uda3/storage
+    profile = default
