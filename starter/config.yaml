@@ -19,3 +19,4 @@ data:
   model_pth: '../model/model.pkl' 
   encoder_pth: '../model/encoder.pkl' 
   lb_pth: '../model/lb.pkl' 
+  slice_performance: '../metrics/slice_performance.txt'

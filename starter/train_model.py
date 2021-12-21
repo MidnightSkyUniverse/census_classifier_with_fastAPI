@@ -108,24 +108,32 @@ def go(cfg: DictConfig):
     logger.info(f"Full dataset run: precision: {precision}'; recall: {recall}; fbeta: {fbeta}")
 
     # Save production model
-    #pth = f"{hydra.utils.get_original_cwd()}/{cfg.data.model_pth}"
-    #save_model(model,pth)
+    pth = f"{hydra.utils.get_original_cwd()}/{cfg.data.model_pth}"
+    save_model(model,pth)
     
     # Draw roc_curve
-    #pth = f"{hydra.utils.get_original_cwd()}/{cfg.metrics.dir}{cfg.metrics.roc}" 
-    #roc_curve_plot(model, y_val, preds,pth)
+    logger.info(f"Save ROC curve to {cfg.metrics.dir}{cfg.metrics.roc}")
+    pth = f"{pwd}/{cfg.metrics.dir}{cfg.metrics.roc}" 
+    roc_curve_plot(model, y_val, preds,pth)
 
+    # Check model performance on slices, record the performance
     logger.info('Model performance on slices')
-    # Train model on slices
-    for cat in cat_features:
-        unique_values = trainval[cat].unique()
-        for value in  unique_values:
-            X, y, encoder, lb = process_data(
-                trainval[trainval[cat]==value], categorical_features=cat_features, label="salary", training=True
-            )
-            preds = inference(model, X)
-            #precision, recall, fbeta = compute_model_metrics(y_val, preds)
-            #logger.info(f"[{cat}={value}]: {precision}'; recall: {recall}; fbeta: {fbeta}")
+    with open(f"{pwd}/{cfg.data.slice_performance}", "w") as file1:
+        for cat in cat_features:
+            unique_values = trainval[cat].unique()
+            for value in  unique_values:
+                X, y, encoder, lb = process_data(
+                    trainval[trainval[cat]==value], categorical_features=cat_features, \
+                    label="salary", training=False, encoder=encoder, lb=lb
+                )
+                preds = inference(model, X)
+                precision, recall, fbeta = compute_model_metrics(y, preds)
+                file1.write(f"Category: {cat}, Value: {value}\n")
+                file1.write(f"Metrics:\n")
+                file1.write(f"Precision: {precision}\n")
+                file1.write(f"Recall: {recall}\n")
+                file1.write(f"Fbeta: {fbeta}\n\n")
+    logger.info(f"Model performance recorded to {cfg.data.slice_performance}")
 
 if __name__ == "__main__":
     go()
