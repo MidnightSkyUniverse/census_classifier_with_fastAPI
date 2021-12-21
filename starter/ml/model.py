@@ -9,7 +9,6 @@ import joblib
 from numpy import mean
 
 
-
 def train_KNeighbours_model(X_train, y_train):
     """
     Trains a machine learning model and returns it.
@@ -28,10 +27,11 @@ def train_KNeighbours_model(X_train, y_train):
 
     model = KNeighborsClassifier()
     model.fit(X_train, y_train)
-    
+
     return model
 
-def train_LogisticRegression_model(X_train, y_train,random_state,max_iter):
+
+def train_LogisticRegression_model(X_train, y_train, random_state, max_iter):
     """
     Trains a machine learning model and returns it.
 
@@ -49,11 +49,11 @@ def train_LogisticRegression_model(X_train, y_train,random_state,max_iter):
 
     model = LogisticRegression(random_state=random_state, max_iter=max_iter)
     model.fit(X_train, y_train)
-    
+
     return model
 
 
-def train_RandomForest_model(X_train, y_train,random_state):
+def train_RandomForest_model(X_train, y_train, random_state):
     """
     Trains a machine learning model and returns it.
 
@@ -71,10 +71,8 @@ def train_RandomForest_model(X_train, y_train,random_state):
 
     model = RandomForestClassifier(random_state=random_state)
     model.fit(X_train, y_train)
-    
+
     return model
-
-
 
 
 def compute_model_metrics(y_test, preds):
@@ -116,6 +114,7 @@ def inference(model, X_test):
     preds = model.predict(X_test)
     return preds
 
+
 def roc_curve_plot(model, test_y, preds, pth):
     '''
         creates and stores the feature importances in pth
@@ -127,20 +126,19 @@ def roc_curve_plot(model, test_y, preds, pth):
     '''
     fpr, tpr, thresholds = metrics.roc_curve(test_y, preds)
     #roc_auc = metrics.auc(fpr, tpr)
-    plt.plot(fpr,tpr,label="Random Forest")
+    plt.plot(fpr, tpr, label="Random Forest")
     plt.savefig(pth, bbox_inches='tight')
     plt.clf()
-
 
 
 def mean_calculation(metrics):
 
     # Select model with highest precision and save it
-    precision, recall, fbeta = zip (*metrics)
+    precision, recall, fbeta = zip(*metrics)
     return mean(precision), mean(recall), mean(fbeta)
 
-   
-def save_model(model,pth):
+
+def save_model(model, pth):
     '''
              saves model to ./models as .pkl file
                 input:
