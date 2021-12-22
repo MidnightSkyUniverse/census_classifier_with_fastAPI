@@ -7,6 +7,7 @@ import pandas as pd
 import joblib
 import uvicorn
 import logging
+import os
 
 from sklearn.ensemble import RandomForestClassifier
 from starter.ml.data import process_data
@@ -14,11 +15,16 @@ from starter.ml.data import process_data
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
+# DVC on Heroku - required code
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
+
 app = FastAPI()
 
 # Home site with welcome message
-
-
 @app.get("/", tags=["home"])
 async def get_root() -> dict:
     return {
