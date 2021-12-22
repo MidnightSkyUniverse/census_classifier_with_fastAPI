@@ -1,0 +1,9 @@
+pytest
+requests
+flake8
+scikit-learn
+fastapi==0.70.1
+awscli==1.22.23
+dvc
+dvc[s3]
+uvicorn
