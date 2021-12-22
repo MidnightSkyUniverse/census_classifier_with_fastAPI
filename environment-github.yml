@@ -1,4 +1,4 @@
-name: ml-proj-3
+name: census_fastAPI
 channels:
   - conda-forge
   - defaults

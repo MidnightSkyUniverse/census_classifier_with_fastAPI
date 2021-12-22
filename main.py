@@ -85,18 +85,5 @@ async def predict(input: CensusData):
     return {"result": preds}
 
 
-# @app.post("/getInformation")
-# async def getInformation(info : Request):
-#    req_info = await info.json()
-#    return {
-#        "status" : "SUCCESS",
-#        "data" : req_info
-#    }
-
-
-# @app.get("/{run}")
-# async def exec_run(run: int):
-#    return {"run": run}
-
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
