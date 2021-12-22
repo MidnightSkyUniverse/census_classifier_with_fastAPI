@@ -127,3 +127,27 @@ def json_sample(request):
     #return json.dumps(payload)
     return payload
 
+
+@pytest.fixture(scope='session')
+def json_sample_2(request):
+    payload = {
+        'age': 66,
+        'workclass': 'Private',
+        'fnlgt': 211781,
+        'education': 'Masters',
+        'education-num': 14,
+        'marital-status': 'Never-married',
+        'occupation': 'Prof-speciality',
+        'relationship': 'Not-in-family',
+        'race': 'Black',
+        'sex': 'Female',
+        'capital-gain': 0,
+        'capital-loss': 0,
+        'hours-per-week': 55,
+        'native-country': 'United-States',
+        'salary': '<=50K'
+    }
+
+    #return json.dumps(payload)
+    return payload
+

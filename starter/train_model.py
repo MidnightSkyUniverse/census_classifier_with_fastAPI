@@ -29,7 +29,7 @@ def go(cfg: DictConfig):
     try:
         data = pd.read_csv(pth)
     except FileNotFoundError:
-        logger.error(f"Failed to load the file")
+        logger.error("Failed to load the file")
 
     # Split the data into training+validation and test data for test
     trainval, test = train_test_split(data,
@@ -42,7 +42,7 @@ def go(cfg: DictConfig):
     try:
         test.to_csv(pth)
     except BaseException:
-        logger.error(f"Failed to save test file")
+        logger.error("Failed to save test file")
 
     # Data encoding
     cat_features = [
@@ -60,14 +60,14 @@ def go(cfg: DictConfig):
     X, y, encoder, lb = process_data(
         trainval, categorical_features=cat_features, label="salary", training=True)
 
-    logger.info(f"Save encoder and lb")
+    logger.info("Save encoder and lb")
     try:
         pth = f"{pwd}/{cfg.data.encoder_pth}"
         # save_model(encoder,pth)
         pth = f"{pwd}/{cfg.data.lb_pth}"
         # save_model(lb,pth)
     except BaseException:
-        logger.error(f"Failed to save encoder and lb")
+        logger.error("Failed to save encoder and lb")
 
     # Prepare cross validation
     kfold = KFold(n_splits=cfg.modeling.n_splits,
@@ -131,7 +131,7 @@ def go(cfg: DictConfig):
                 preds = inference(model, X)
                 precision, recall, fbeta = compute_model_metrics(y, preds)
                 file1.write(f"Category: {cat}, Value: {value}\n")
-                file1.write(f"Metrics:\n")
+                file1.write("Metrics:\n")
                 file1.write(f"Precision: {precision}\n")
                 file1.write(f"Recall: {recall}\n")
                 file1.write(f"Fbeta: {fbeta}\n\n")
