@@ -1,6 +1,7 @@
 pytest
 python-benedict>=0.24.2
 python_dateutil>=2.8.1
+pyparsing>=3.0.4
 requests
 flake8
 scikit-learn
