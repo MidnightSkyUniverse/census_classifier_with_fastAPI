@@ -1,4 +1,3 @@
-import json
 import requests
 import logging
 
@@ -7,7 +6,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
 
-url = 'http://0.0.0.0:8000/predict'
+url = 'http://census-fastapi.herokuapp.com/'
 payload = {
     'age': 31,
     'workclass': 'Private',
@@ -30,7 +29,7 @@ headers = {'content-type': 'application/json'}
 
 if __name__ == '__main__':
     # , headers=headers)
-    response = requests.post(url, data=json.dumps(payload), headers=headers)
+    response = requests.get(url)
 
     if response.status_code == 200:
         result = response.json()['result']

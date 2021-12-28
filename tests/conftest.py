@@ -3,9 +3,12 @@ import pandas as pd
 import joblib
 import sys
 import os
+from starter.ml.data import process_data
 
 sys.path.insert(0, os.getcwd())
-from starter.ml.data import process_data
+print('Local directory:')
+print(getcwd())
+
 
 @pytest.fixture(scope='session')
 def data_sample(request):
@@ -124,7 +127,7 @@ def json_sample(request):
         'salary': '>50K'
     }
 
-    #return json.dumps(payload)
+    # return json.dumps(payload)
     return payload
 
 
@@ -148,6 +151,5 @@ def json_sample_2(request):
         'salary': '<=50K'
     }
 
-    #return json.dumps(payload)
+    # return json.dumps(payload)
     return payload
-

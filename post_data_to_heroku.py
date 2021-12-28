@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
 
-url = 'http://0.0.0.0:8000/predict'
+url = 'https://census-fastapi.herokuapp.com/predict'
 payload = {
     'age': 31,
     'workclass': 'Private',

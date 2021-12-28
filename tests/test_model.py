@@ -1,7 +1,6 @@
 import numpy as np
 
 
-
 def test_data_size(data):
     """
     Test if we have reasonable amount of data

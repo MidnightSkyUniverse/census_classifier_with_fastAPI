@@ -1,5 +1,9 @@
-# Script to train machine learning model.
+"""
+Author: Ali Binkowska
+Date: Dec 2021
 
+The 
+"""
 # from sklearn.model_selection import train_test_split
 import hydra
 import logging
@@ -14,7 +18,7 @@ from ml.data import process_data
 from ml.model import train_RandomForest_model, compute_model_metrics, inference, \
     roc_curve_plot, mean_calculation, save_model
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)- %(message)s")
 logger = logging.getLogger()
 
 
@@ -93,7 +97,7 @@ def go(cfg: DictConfig):
 
     # Present mean values for kfold runs
     logger.info(
-        'Model RandomForestmean mean values for {cfg.modeling.n_splits} runs')
+        'Model RandomForest mean values for {cfg.modeling.n_splits} runs')
     precision_mean, recall_mean, fbeta_mean = mean_calculation(metrics)
     logger.info(
         f"Precision: {precision_mean}'; Recall: {recall_mean}; Fbeta: {fbeta_mean}")
