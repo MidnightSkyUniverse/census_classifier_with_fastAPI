@@ -242,7 +242,7 @@ dependencies:
     - gitpython==3.1.24
     - grandalf==0.6
     - h11==0.12.0
-    - heroku==0.1.4
+    - heroku
     - invoke==1.6.0
     - jmespath==0.10.0
     - joblib==1.0.1
