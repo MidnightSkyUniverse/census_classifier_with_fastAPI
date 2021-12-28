@@ -18,7 +18,6 @@ logger = logging.getLogger()
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     print (os.environ['AWS_ACCESS_KEY_ID'])
     print (os.environ['AWS_S3_REGION'])
-    print (os.environ['AWS_SECRET_ACCESS_KEY'])
     print (os.environ['AWS_STORAGE_BUCKET_NAME'])
     os.system("dvc config core.no_scm true")
     if os.system("dvc pull") != 0:
