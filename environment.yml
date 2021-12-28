@@ -204,7 +204,7 @@ dependencies:
   - zlib=1.2.11=h7b6447c_3
   - zstd=1.4.9=haebb681_0
   - pip:
-    - aiobotocore==2.0.1
+    - aiobotocore
     - aiohttp==3.8.1
     - aiohttp-retry==2.4.6
     - aioitertools==0.8.0
@@ -218,9 +218,8 @@ dependencies:
     - bcrypt==3.2.0
     - boto==2.49.0
     - boto3==1.19.8
-    - botocore==1.23.26
+    - botocore
     - click==8.0.3
-    - colorama==0.4.3
     - commonmark==0.9.1
     - configobj==5.0.6
     - dictdiffer==0.9.0
