@@ -6,8 +6,6 @@ import os
 from starter.ml.data import process_data
 
 sys.path.insert(0, os.getcwd())
-print('Local directory:')
-print(getcwd())
 
 
 @pytest.fixture(scope='session')
