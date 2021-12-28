@@ -217,7 +217,7 @@ dependencies:
     - awscli==1.22.26
     - bcrypt==3.2.0
     - boto==2.49.0
-    - boto3==1.19.8
+    - boto3
     - botocore
     - click==8.0.3
     - commonmark==0.9.1
