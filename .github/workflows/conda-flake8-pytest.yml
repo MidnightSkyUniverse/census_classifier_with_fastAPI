@@ -36,7 +36,7 @@ jobs:
         aws-region: ${{secrets.aws_region}}
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
-    - run: dvc remote add -d s3-bucket s3://uda3/storage
+   ## - run: dvc remote add -d s3-bucket s3://uda3/storage
    ## - run: dvc pull
    ## - name: Test with pytest
    ##   run: |
