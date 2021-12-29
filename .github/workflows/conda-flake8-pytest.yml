@@ -43,4 +43,5 @@ jobs:
         conda install pytest
         conda install pandas
         conda install joblib
+        conda install scikit-learn
         pytest
