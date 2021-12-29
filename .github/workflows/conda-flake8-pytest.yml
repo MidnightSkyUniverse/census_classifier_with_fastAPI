@@ -42,4 +42,5 @@ jobs:
       run: |
         conda install pytest
         conda install pandas
+        conda install joblib
         pytest
