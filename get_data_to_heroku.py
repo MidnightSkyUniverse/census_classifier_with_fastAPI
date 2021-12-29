@@ -32,7 +32,7 @@ if __name__ == '__main__':
     response = requests.get(url)
 
     if response.status_code == 200:
-        result = response.json()['result']
+        result = response.json()
         logging.info(f"The prediction for given sample is: {result}")
     else:
         logging.error(
