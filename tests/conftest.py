@@ -3,9 +3,10 @@ import pandas as pd
 import joblib
 import sys
 import os
-from .starter.ml.data import process_data
+#import starter.ml.data as dt
 
 sys.path.insert(0, os.getcwd())
+from starter.ml.data import process_data
 
 
 @pytest.fixture(scope='session')

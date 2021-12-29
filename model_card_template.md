@@ -1,6 +1,15 @@
 # Model Card
 
 
+
+    Model Details such as who made it, type of model, training/hyperparameter details, and links to any additional documentation like a paper reference.
+    Intended use for the model and the intended users.
+    Metrics of how the model performs. Include overall performance and also key slices. A figure or two can convey a lot.
+    Data including the training and validation data. How it was acquired and processed.
+    Bias inherent either in data or model. This could also be included in the metrics or data section.
+    Caveats, if there are any.
+
+
 ## Model Details
 Author: Ali Binkowska
 Data: Dec 2021
