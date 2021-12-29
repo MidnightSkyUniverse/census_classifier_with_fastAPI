@@ -41,4 +41,5 @@ jobs:
     - name: Test with pytest
       run: |
         conda install pytest
+        conda install pandas
         pytest
