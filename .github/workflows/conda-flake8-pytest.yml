@@ -44,5 +44,5 @@ jobs:
         conda install pandas
         conda install joblib
         conda install scikit-learn
-        conda install fastapi
+        conda install fastapi -c conda-forge
         pytest
