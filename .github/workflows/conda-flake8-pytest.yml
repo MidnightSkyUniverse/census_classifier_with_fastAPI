@@ -45,4 +45,5 @@ jobs:
         conda install joblib
         conda install scikit-learn
         conda install fastapi -c conda-forge
+        conda install uvicorn -c conda-forge
         pytest
