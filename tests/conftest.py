@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import sys
 import os
-from starter.ml.data import process_data
+from .starter.ml.data import process_data
 
 sys.path.insert(0, os.getcwd())
 
