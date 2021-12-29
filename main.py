@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 import pandas as pd
 import joblib
-import uvicorn
+#import uvicorn
 import logging
 import os
 
@@ -27,6 +27,7 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 app = FastAPI()
+
 
 # Home site with welcome message - GET request
 @app.get("/", tags=["home"])
@@ -56,6 +57,7 @@ class CensusData(BaseModel):
     hours_per_week: int = Field(..., alias='hours-per-week')
     native_country: str = Field(..., alias='native-country')
     salary: Optional[str]
+
 
 # POST request to /predict site. Used to validate model with sample census data
 @app.post('/predict')
