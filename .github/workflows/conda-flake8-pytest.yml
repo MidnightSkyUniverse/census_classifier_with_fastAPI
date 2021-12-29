@@ -40,4 +40,5 @@ jobs:
     - run: dvc pull
     - name: Test with pytest
       run: |
+        conda install pytest
         pytest
