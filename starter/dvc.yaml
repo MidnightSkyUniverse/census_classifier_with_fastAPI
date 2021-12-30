@@ -1,0 +1,16 @@
+stages:
+  split_data:
+    cmd: python ml/split_data.py
+    deps:
+    - ml/split_data.py
+    params:
+    - modeling.test_size
+    - modeling.random_state
+  process_data:
+    cmd: python ml/process_data.py
+    deps:
+    - ml/process_data.py
+    params:
+    - cat_features
+    - data.trainval_data
+    - train.true_
