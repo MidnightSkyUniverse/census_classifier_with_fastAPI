@@ -1,0 +1,64 @@
+schema: '2.0'
+stages:
+  split_data:
+    cmd: python ml/split_data.py
+    deps:
+    - path: ml/split_data.py
+      md5: 2f1c544450f3968e4b806fc8b9fb26e9
+      size: 1382
+    params:
+      params.yaml:
+        modeling.random_state: 42
+        modeling.test_size: 0.15
+    outs:
+    - path: ../data/test_data.csv
+      md5: a9c909bff38974cea06a2624322f7f85
+      size: 527086
+    - path: ../data/trainval_data.csv
+      md5: ddff0571f7026dba090b1f018c762d5f
+      size: 2991674
+  get_data:
+    cmd: python ml/get_data.py
+    deps:
+    - path: ml/get_data.py
+      md5: fc0c97b5a9c29c72f1cce8099f5f844e
+      size: 1764
+    params:
+      params.yaml:
+        modeling.random_state: 42
+        modeling.test_size: 0.2
+  test:
+    cmd: python ml/test.py --data ../data/trainval_data.csv
+  test2:
+    cmd: python ml/test.py
+    deps:
+    - path: ml/test.py
+      md5: 6580299387a359ef3272c97d246f7624
+      size: 355
+    params:
+      params.yaml:
+        modeling.test_size: 0.2
+  o-exec:
+    cmd: python ml/test.py
+    deps:
+    - path: ml/test.py
+      md5: 6580299387a359ef3272c97d246f7624
+      size: 355
+    params:
+      params.yaml:
+        modeling.test_size: 0.2
+  process_data:
+    cmd: 'python ml/process_data.py ../data/trainval_data.csv '
+    params:
+      params.yaml:
+        cat_features:
+        - workclass
+        - education
+        - marital-status
+        - occupation
+        - relationship
+        - race
+        - sex
+        - native-country
+        label: salary
+        train.true_: true

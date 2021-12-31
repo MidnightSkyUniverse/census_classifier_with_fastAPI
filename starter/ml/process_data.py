@@ -1,14 +1,20 @@
+"""
+"""
+import logging
+import sys
+import os
+import yaml
+import joblib
+
+import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s- %(message)s")
+logger = logging.getLogger()
 
-def process_data(
-        X,
-        categorical_features=[],
-        label=None,
-        training=True,
-        encoder=None,
-        lb=None):
+
+def process_data():
     """ Process the data used in the machine learning pipeline.
 
     Processes the data using one hot encoding for the categorical features and a
@@ -47,23 +53,42 @@ def process_data(
         Trained LabelBinarizer if training is True, otherwise returns the binarizer
         passed in.
     """
+    if len(sys.argv) == 0:
+        logger.error("Arguments error")   
+        sys.exit(1)
 
+    logger.info(f"Import data from {sys.argv[1]}")
+    pwd = os.getcwd()    
+    try:
+        X = pd.read_csv(f"{pwd}/{sys.argv[1]}")
+    except FileNotFoundError:
+        logger.error("Failed to load the file")
+
+    logger.info("Split data into X and y") 
+    label = yaml.safe_load(open("params.yaml"))["label"]
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)
     else:
         y = np.array([])
 
+    # Separate categorical and numerical data  
+    logger.info("Split X into categorical and continuous") 
+    categorical_features = yaml.safe_load(open("params.yaml"))["cat_features"]
     X_categorical = X[categorical_features].values
     X_continuous = X.drop(*[categorical_features], axis=1)
 
+    # Transofrm data  
+    training = yaml.safe_load(open("params.yaml"))["train"]["true_"]
     if training is True:
+        logger.info("Create OneHotEncoder and LabelBinarizer & transform data") 
         encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
         lb = LabelBinarizer()
         X_categorical = encoder.fit_transform(X_categorical)
         # Return the flattened underlying data as an ndarray.
         y = lb.fit_transform(y.values).ravel()
     else:
+        logger.info("Transform data with provided OneHotEncoder and LabelBinarizer") 
         X_categorical = encoder.transform(X_categorical)
         try:
             y = lb.transform(y.values).ravel()
@@ -71,5 +96,41 @@ def process_data(
         except AttributeError:
             pass
 
+    logger.info("Combine categorical and numerical data in X") 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
-    return X, y, encoder, lb
+
+
+    # Save the output of the function
+    artifacts = yaml.safe_load(open("params.yaml"))["data"]
+
+    for df, k in zip([X, y], [artifacts['X'], artifacts['y']]):
+        logger.info(f"Saving {k} dataset")
+        output = f"{pwd}/{k}"
+        try:
+            pd.DataFrame(df).to_csv(output, index=False)
+        except BaseException:
+            logger.error(f"Failed to save file {k}")
+
+
+    if training is True:
+        for model, k in zip([encoder,lb], [artifacts['encoder_pth'],artifacts['lb_pth']]):
+            logger.info(f"Saving {k} model")
+            output = f"{pwd}/{k}"
+            try:
+                save_model(model,k)
+            except BaseException:
+                logger.error("Failed to save encoder and lb")
+
+
+def save_model(model,pth):
+    '''
+             saves model to ./models as .pkl file
+                input:
+                    model: trained model
+                    pth: path to store the model
+    '''
+    joblib.dump(model, pth)
+
+if __name__ == '__main__':
+
+    process_data()
