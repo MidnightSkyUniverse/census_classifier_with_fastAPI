@@ -6,17 +6,36 @@ modeling:
   shuffle: True
   random_state: 42
   max_iter: 150
-  test_size: .2
+  test_size: .15
 metrics: 
   dir: '../metrics/'
   roc: 'roc_curve.png'
   beta: 1
   zero_division: 1
+  kfold: '../metrics/kfold_scores.json'
 data:
   clean_data: '../data/clean_data.csv'
   raw_data: '../data/census.csv'
   test_data: '../data/test_data.csv'
+  trainval_data: '../data/trainval_data.csv'
   model_pth: '../model/model.pkl' 
   encoder_pth: '../model/encoder.pkl' 
   lb_pth: '../model/lb.pkl' 
   slice_performance: '../metrics/slice_performance.txt'
+  X: '../data/X.csv'
+  y: '../data/y.csv'
+cat_features: [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]
+train:
+  true_: True
+  false_: False
+
+label: 'salary'

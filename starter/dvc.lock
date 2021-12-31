@@ -10,6 +10,13 @@ stages:
       params.yaml:
         modeling.random_state: 42
         modeling.test_size: 0.15
+    outs:
+    - path: ../data/test_data.csv
+      md5: a9c909bff38974cea06a2624322f7f85
+      size: 527086
+    - path: ../data/trainval_data.csv
+      md5: ddff0571f7026dba090b1f018c762d5f
+      size: 2991674
   get_data:
     cmd: python ml/get_data.py
     deps:

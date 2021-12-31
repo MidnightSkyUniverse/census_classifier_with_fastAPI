@@ -6,11 +6,30 @@ stages:
     params:
     - modeling.test_size
     - modeling.random_state
+    outs:
+    - ../data/trainval_data.csv
+    - ../data/test_data.csv
   process_data:
-    cmd: python ml/process_data.py
-    deps:
-    - ml/process_data.py
+    cmd: >-
+      python ml/process_data.py ${data.trainval_data} 
     params:
     - cat_features
-    - data.trainval_data
     - train.true_
+    - label
+    outs:
+    - ../data/X.csv
+    - ../data/y.csv
+    - ../model/encoder.pkl
+    - ../model/lb.pkl
+  kfold:
+    cmd: >-
+      python ml/kfold.py
+    params:
+    - ../data/trainval_data.csv
+    - modeling.random_state
+    - data.model_pth
+    - modeling.n_splits
+    - modeling.shuffle
+    metrics:
+    - ../metrics/kfold_scores.json
+    
