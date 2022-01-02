@@ -3,52 +3,32 @@ stages:
   split_data:
     cmd: python ml/split_data.py
     deps:
+    - path: data/census.csv
+      md5: 145de00f6e6053d3f7044628f9a5b5ff
+      size: 3974474
     - path: ml/split_data.py
-      md5: 2f1c544450f3968e4b806fc8b9fb26e9
-      size: 1382
+      md5: 00e8c582b8daf98e4de9b308e95c9b83
+      size: 1379
     params:
       params.yaml:
         modeling.random_state: 42
         modeling.test_size: 0.15
     outs:
-    - path: ../data/test_data.csv
+    - path: data/test_data.csv
       md5: a9c909bff38974cea06a2624322f7f85
       size: 527086
-    - path: ../data/trainval_data.csv
+    - path: data/trainval_data.csv
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
-  get_data:
-    cmd: python ml/get_data.py
-    deps:
-    - path: ml/get_data.py
-      md5: fc0c97b5a9c29c72f1cce8099f5f844e
-      size: 1764
-    params:
-      params.yaml:
-        modeling.random_state: 42
-        modeling.test_size: 0.2
-  test:
-    cmd: python ml/test.py --data ../data/trainval_data.csv
-  test2:
-    cmd: python ml/test.py
-    deps:
-    - path: ml/test.py
-      md5: 6580299387a359ef3272c97d246f7624
-      size: 355
-    params:
-      params.yaml:
-        modeling.test_size: 0.2
-  o-exec:
-    cmd: python ml/test.py
-    deps:
-    - path: ml/test.py
-      md5: 6580299387a359ef3272c97d246f7624
-      size: 355
-    params:
-      params.yaml:
-        modeling.test_size: 0.2
   process_data:
-    cmd: 'python ml/process_data.py ../data/trainval_data.csv '
+    cmd: python ml/process_data.py
+    deps:
+    - path: data/trainval_data.csv
+      md5: ddff0571f7026dba090b1f018c762d5f
+      size: 2991674
+    - path: ml/process_data.py
+      md5: 03a8106ce3f9935c48f8cda0eb673a7a
+      size: 4639
     params:
       params.yaml:
         cat_features:
@@ -62,3 +42,16 @@ stages:
         - native-country
         label: salary
         train.true_: true
+    outs:
+    - path: data/X.npy
+      md5: ddb8ba65fa6c528fefe5733549e7346d
+      size: 23912192
+    - path: data/y.npy
+      md5: 27206b3098126af65f47978e632163c4
+      size: 221536
+    - path: model/encoder.pkl
+      md5: cda18c6561b7ef57f19f48d00d3ff62b
+      size: 3898
+    - path: model/lb.pkl
+      md5: 5025695085b01a6b6c57df2159831c2d
+      size: 403

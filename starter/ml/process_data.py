@@ -1,7 +1,6 @@
 """
 """
 import logging
-import sys
 import os
 import yaml
 import joblib
@@ -53,14 +52,12 @@ def process_data():
         Trained LabelBinarizer if training is True, otherwise returns the binarizer
         passed in.
     """
-    if len(sys.argv) == 0:
-        logger.error("Arguments error")   
-        sys.exit(1)
 
-    logger.info(f"Import data from {sys.argv[1]}")
+    trainval_pth = yaml.safe_load(open("params.yaml"))["data"]['trainval_data']
+    logger.info(f"Import data from {trainval_pth}")
     pwd = os.getcwd()    
     try:
-        X = pd.read_csv(f"{pwd}/{sys.argv[1]}")
+        X = pd.read_csv(f"{pwd}/{trainval_pth}")
     except FileNotFoundError:
         logger.error("Failed to load the file")
 
@@ -103,11 +100,12 @@ def process_data():
     # Save the output of the function
     artifacts = yaml.safe_load(open("params.yaml"))["data"]
 
-    for df, k in zip([X, y], [artifacts['X'], artifacts['y']]):
-        logger.info(f"Saving {k} dataset")
+    for arr, k in zip([X, y], [artifacts['X'], artifacts['y']]):
+        logger.info(f"Saving {k} array")
         output = f"{pwd}/{k}"
         try:
-            pd.DataFrame(df).to_csv(output, index=False)
+            #pd.DataFrame(df).to_csv(output, index=False)
+            np.save(output,arr)
         except BaseException:
             logger.error(f"Failed to save file {k}")
 

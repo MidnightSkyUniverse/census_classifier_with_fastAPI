@@ -2,34 +2,25 @@ stages:
   split_data:
     cmd: python ml/split_data.py
     deps:
+    - data/census.csv
     - ml/split_data.py
     params:
-    - modeling.test_size
     - modeling.random_state
+    - modeling.test_size
     outs:
-    - ../data/trainval_data.csv
-    - ../data/test_data.csv
+    - data/test_data.csv
+    - data/trainval_data.csv
   process_data:
-    cmd: >-
-      python ml/process_data.py ${data.trainval_data} 
+    cmd: python ml/process_data.py
+    deps:
+    - data/trainval_data.csv
+    - ml/process_data.py
     params:
     - cat_features
-    - train.true_
     - label
+    - train.true_
     outs:
-    - ../data/X.csv
-    - ../data/y.csv
-    - ../model/encoder.pkl
-    - ../model/lb.pkl
-  kfold:
-    cmd: >-
-      python ml/kfold.py
-    params:
-    - ../data/trainval_data.csv
-    - modeling.random_state
-    - data.model_pth
-    - modeling.n_splits
-    - modeling.shuffle
-    metrics:
-    - ../metrics/kfold_scores.json
-    
+    - data/X.npy
+    - data/y.npy
+    - model/encoder.pkl
+    - model/lb.pkl

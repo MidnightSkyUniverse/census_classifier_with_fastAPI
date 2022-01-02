@@ -33,7 +33,7 @@ def go():
     trainval, test = train_test_split(
             data,
             test_size = modeling['test_size'],
-            random_state=modeling['random_state']    
+            random_state=modeling['random_state'],
     )
 
     # Save trainval and test data as csv files

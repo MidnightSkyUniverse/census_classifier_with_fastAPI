@@ -4,3 +4,7 @@
 /clean_data.csv
 /trainval_data.csv
 /test_data.csv
+/X.csv
+/y.csv
+/X.npy
+/y.npy
