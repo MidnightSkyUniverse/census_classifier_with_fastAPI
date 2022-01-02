@@ -27,8 +27,8 @@ stages:
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
     - path: ml/process_data.py
-      md5: 03a8106ce3f9935c48f8cda0eb673a7a
-      size: 4639
+      md5: 18ef2b21695959d79b04f9128594f0d9
+      size: 4435
     params:
       params.yaml:
         cat_features:
@@ -55,3 +55,44 @@ stages:
     - path: model/lb.pkl
       md5: 5025695085b01a6b6c57df2159831c2d
       size: 403
+  kfold:
+    cmd: python ml/kfold.py
+    deps:
+    - path: data/trainval_data.csv
+      md5: ddff0571f7026dba090b1f018c762d5f
+      size: 2991674
+    - path: ml/kfold.py
+      md5: 4791e2edf490f6e667f22305c657a118
+      size: 2347
+    params:
+      params.yaml:
+        modeling.n_splits: 5
+        modeling.random_state: 42
+        modeling.shuffle: true
+    outs:
+    - path: metrics/kfold_scores.json
+      md5: 80c3d32c5a0f06b856735f7f3a24fd3c
+      size: 106
+  train_predict:
+    cmd: python ml/train_predict.py
+    deps:
+    - path: data/X.npy
+      md5: ddb8ba65fa6c528fefe5733549e7346d
+      size: 23912192
+    - path: data/y.npy
+      md5: 27206b3098126af65f47978e632163c4
+      size: 221536
+    - path: ml/train_predict.py
+      md5: 08b0b6bbc838d114ca9d021b86f74f05
+      size: 2141
+    params:
+      params.yaml:
+        modeling.random_state: 42
+        modeling.test_size: 0.15
+    outs:
+    - path: metrics/model_scores.json
+      md5: f138e66e240123f260919250bb3584ab
+      size: 106
+    - path: model/model.pkl
+      md5: 40254a5a9c415fd8db052ddbe7e7aa78
+      size: 59689975

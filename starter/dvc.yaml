@@ -24,3 +24,29 @@ stages:
     - data/y.npy
     - model/encoder.pkl
     - model/lb.pkl
+  kfold:
+    cmd: python ml/kfold.py
+    deps:
+    - data/trainval_data.csv
+    - ml/kfold.py
+    params:
+    - modeling.n_splits
+    - modeling.random_state
+    - modeling.shuffle
+    metrics:
+    - metrics/kfold_scores.json:
+        cache: false
+  train_predict:
+    cmd: python ml/train_predict.py
+    deps:
+    - data/X.npy
+    - data/y.npy
+    - ml/train_predict.py
+    params:
+    - modeling.random_state
+    - modeling.test_size
+    outs:
+    - model/model.pkl
+    metrics:
+    - metrics/model.json:
+        cache: false
