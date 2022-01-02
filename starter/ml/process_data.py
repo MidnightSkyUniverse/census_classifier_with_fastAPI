@@ -9,6 +9,8 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
+from model import save_model
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s- %(message)s")
 logger = logging.getLogger()
 
@@ -120,14 +122,6 @@ def process_data():
                 logger.error("Failed to save encoder and lb")
 
 
-def save_model(model,pth):
-    '''
-             saves model to ./models as .pkl file
-                input:
-                    model: trained model
-                    pth: path to store the model
-    '''
-    joblib.dump(model, pth)
 
 if __name__ == '__main__':
 

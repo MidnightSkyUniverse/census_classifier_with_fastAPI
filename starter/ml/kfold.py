@@ -65,7 +65,7 @@ def go():
     # Present mean values for kfold runs
     kfold_pth = yaml.safe_load(open("params.yaml"))["metrics"]['kfold']
     logger.info(
-        'Model RandomForest mean values for KFold-s saved to {kfold_pth}')
+        f'Model RandomForest mean values for KFold-s saved to {kfold_pth}')
     precision_mean, recall_mean, fbeta_mean = mean_calculation(metrics)
 
     with open(kfold_pth, "w") as fd:

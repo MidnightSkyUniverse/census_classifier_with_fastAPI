@@ -48,5 +48,5 @@ stages:
     outs:
     - model/model.pkl
     metrics:
-    - metrics/model.json:
+    - metrics/model_scores.json:
         cache: false

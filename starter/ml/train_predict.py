@@ -16,7 +16,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold, train_test_split
 
-from model import  train_RandomForest_model, inference, compute_model_metrics, mean_calculation
+from model import  train_RandomForest_model, inference, compute_model_metrics, mean_calculation, save_model
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s- %(message)s")
 logger = logging.getLogger()
@@ -44,7 +44,6 @@ def go():
             y, 
             test_size=model_params['test_size'], 
             random_state=model_params['random_state'],
-            stratify=y
     )
     model = train_RandomForest_model(
             X_train, 
@@ -62,6 +61,13 @@ def go():
             fd,
             indent=4,
         )
+
+    # Save ROC 
+    roc_pth = yaml.safe_load(open("params.yaml"))["metrics"]['roc']
+    logger.info(f"Save ROC curve to {cfg.metrics.roc}")
+    pth = f"{pwd}/{cfg.metrics.dir}{cfg.metrics.roc}"
+    roc_curve_plot(model, y_val, preds, pth)
+
 
     # Save production model
     model_pth = yaml.safe_load(open("params.yaml"))["data"]['model_pth']
