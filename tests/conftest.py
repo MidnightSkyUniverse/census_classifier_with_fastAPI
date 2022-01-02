@@ -6,7 +6,7 @@ import os
 #import starter.ml.data as dt
 
 sys.path.insert(0, os.getcwd())
-from starter.ml.data import process_data
+from starter.ml.functions import data_encoder
 
 
 @pytest.fixture(scope='session')
@@ -35,25 +35,25 @@ def data_sample(request):
 
 @pytest.fixture(scope='session')
 def data(request):
-    data = pd.read_csv('./data/clean_data.csv')
+    data = pd.read_csv('starter/data/clean_data.csv')
     return data
 
 
 @pytest.fixture(scope='session')
 def model(request):
-    model = joblib.load("./model/model.pkl")
+    model = joblib.load("starter/model/model.pkl")
     return model
 
 
 @pytest.fixture(scope='session')
 def lb(request):
-    lb = joblib.load("./model/lb.pkl")
+    lb = joblib.load("starter/model/lb.pkl")
     return lb
 
 
 @pytest.fixture(scope='session')
 def encoder(request):
-    encoder = joblib.load("./model/encoder.pkl")
+    encoder = joblib.load("starter/model/encoder.pkl")
     return encoder
 
 
@@ -76,7 +76,7 @@ def process_data_fixture(data, encoder, lb):
     #y = data['salary']
     X = data.drop(['salary'], axis=1)
 
-    X, y, _, _ = process_data(X, categorical_features=cat_features,
+    X, y, _, _ = data_encoder(X, categorical_features=cat_features,
                               label=None, training=False, encoder=encoder, lb=lb)
     #X, y, _, _ = process_data(X, categorical_features=cat_features, training=True)
     return X, y
@@ -101,7 +101,7 @@ def process_sample_fixture(data_sample, encoder, lb):
 
     X = data_sample.drop(['salary'], axis=1)
 
-    X, y, _, _ = process_data(X, categorical_features=cat_features,
+    X, y, _, _ = data_encoder(X, categorical_features=cat_features,
                               label=None, training=False, encoder=encoder, lb=lb)
     return X, y
 

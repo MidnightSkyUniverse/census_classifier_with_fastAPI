@@ -13,7 +13,7 @@ import joblib
 import logging
 import os
 
-from starter.ml.data import process_data
+from starter.ml.functions import data_encoder
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
@@ -70,9 +70,9 @@ async def predict(input: CensusData):
     """
     # Load model, encoder and lb
     try:
-        model = joblib.load("./model/model.pkl")
-        encoder = joblib.load("./model/encoder.pkl")
-        lb = joblib.load("./model/lb.pkl")
+        model = joblib.load("starter/model/model.pkl")
+        encoder = joblib.load("starter/model/encoder.pkl")
+        lb = joblib.load("starter/model/lb.pkl")
     except BaseException:
         logging.error('Failed to load model, encoder or lb')
 
@@ -93,7 +93,7 @@ async def predict(input: CensusData):
     logger.info(f"Input data: {input_df}")
 
     # Process the data
-    X_train, _, _, _ = process_data(
+    X_train, _, _, _ =data_encoder(
                 input_df, categorical_features=cat_features, \
                 label='salary', training=False, encoder=encoder, lb=lb)
 
