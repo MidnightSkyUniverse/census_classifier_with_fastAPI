@@ -60,19 +60,24 @@ def go():
 
 
         precision, recall, fbeta = compute_model_metrics(y_val, preds)
+        
         metrics.append((precision, recall, fbeta))
 
     # Present mean values for kfold runs
     kfold_pth = yaml.safe_load(open("params.yaml"))["metrics"]['kfold']
     logger.info(
-        f'Model RandomForest mean values for KFold-s saved to {kfold_pth}')
-    precision_mean, recall_mean, fbeta_mean = mean_calculation(metrics)
-
+        f'Model RandomForest values for KFold-s saved to {kfold_pth}')
+    #precision_mean, recall_mean, fbeta_mean = mean_calculation(metrics)
+    # Save KFold metrics to json file
     with open(kfold_pth, "w") as fd:
         json.dump(
-            {"precision": precision_mean, "recall": recall_mean, "fbeta": fbeta_mean},
-            fd,
-            indent=4,
+        {
+            "kfold": [
+                {"precision": p, "recall": r, "fbeta": f} for p, r, f in metrics
+            ]
+        },
+        fd,
+        indent=4,
     )
 
 

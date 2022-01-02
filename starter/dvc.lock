@@ -27,8 +27,8 @@ stages:
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
     - path: ml/process_data.py
-      md5: 18ef2b21695959d79b04f9128594f0d9
-      size: 4435
+      md5: 0f3cecc182f2e7b01bffa6cc51cfb899
+      size: 3347
     params:
       params.yaml:
         cat_features:
@@ -62,8 +62,8 @@ stages:
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
     - path: ml/kfold.py
-      md5: 4791e2edf490f6e667f22305c657a118
-      size: 2347
+      md5: eaf3297f183afc868726e4b4b5064da4
+      size: 2433
     params:
       params.yaml:
         modeling.n_splits: 5
@@ -71,8 +71,8 @@ stages:
         modeling.shuffle: true
     outs:
     - path: metrics/kfold_scores.json
-      md5: 80c3d32c5a0f06b856735f7f3a24fd3c
-      size: 106
+      md5: 626b00fdb1e1865b96ad3b4d1b1b661f
+      size: 761
   train_predict:
     cmd: python ml/train_predict.py
     deps:
@@ -83,16 +83,57 @@ stages:
       md5: 27206b3098126af65f47978e632163c4
       size: 221536
     - path: ml/train_predict.py
-      md5: 08b0b6bbc838d114ca9d021b86f74f05
-      size: 2141
+      md5: f8d4604f120e8466b04a7af58242349a
+      size: 3490
     params:
       params.yaml:
         modeling.random_state: 42
         modeling.test_size: 0.15
     outs:
     - path: metrics/model_scores.json
-      md5: f138e66e240123f260919250bb3584ab
-      size: 106
+      md5: c6a63a422015fa411b85501fa77801cf
+      size: 72
+    - path: metrics/precision.json
+      md5: a554fdf12424049807d9af570ad583e7
+      size: 276
+    - path: metrics/roc.json
+      md5: d0afe581ee99b016337a081c85154448
+      size: 339
     - path: model/model.pkl
       md5: 40254a5a9c415fd8db052ddbe7e7aa78
       size: 59689975
+  slice_predict:
+    cmd: python ml/slice_predict.py
+    deps:
+    - path: data/trainval_data.csv
+      md5: ddff0571f7026dba090b1f018c762d5f
+      size: 2991674
+    - path: ml/slice_predict.py
+      md5: b6b8c46643ad85b995c8ef5ab62e2fac
+      size: 2733
+    - path: model/encoder.pkl
+      md5: cda18c6561b7ef57f19f48d00d3ff62b
+      size: 3898
+    - path: model/lb.pkl
+      md5: 5025695085b01a6b6c57df2159831c2d
+      size: 403
+    - path: model/model.pkl
+      md5: 40254a5a9c415fd8db052ddbe7e7aa78
+      size: 59689975
+    params:
+      params.yaml:
+        cat_features:
+        - workclass
+        - education
+        - marital-status
+        - occupation
+        - relationship
+        - race
+        - sex
+        - native-country
+        label: salary
+        train.false_: false
+    outs:
+    - path: metrics/slice_scores.json
+      md5: 209d520df7f557656d276a1940549199
+      size: 20865

@@ -9,14 +9,15 @@ import os
 import logging
 import yaml
 import json
+import math
 
-# from numpy import array
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold, train_test_split
+from sklearn import metrics
 
-from model import  train_RandomForest_model, inference, compute_model_metrics, mean_calculation, save_model
+from model import  train_RandomForest_model, inference, save_model
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s- %(message)s")
 logger = logging.getLogger()
@@ -52,31 +53,67 @@ def go():
     )
 
     preds = inference(model, X_val)
-    precision, recall, fbeta = compute_model_metrics(y_val, preds)
-    logger.info(f"Full dataset run: precision: {precision}'; recall: {recall}; fbeta: {fbeta}")
-    model_scores = yaml.safe_load(open("params.yaml"))["metrics"]['model']
-    with open(model_scores, "w") as fd:
-        json.dump(
-            {"precision": precision, "recall": recall, "fbeta": fbeta},
-            fd,
-            indent=4,
-        )
 
-    # Save ROC 
-    roc_pth = yaml.safe_load(open("params.yaml"))["metrics"]['roc']
-    logger.info(f"Save ROC curve to {cfg.metrics.roc}")
-    pth = f"{pwd}/{cfg.metrics.dir}{cfg.metrics.roc}"
-    roc_curve_plot(model, y_val, preds, pth)
+
+    logger.info("Calculate metrics: precision, recall, prc_thresholds, ROC curve")
+    precision, recall, prc_thresholds = metrics.precision_recall_curve(y_val, preds)
+    fpr, tpr, roc_thresholds = metrics.roc_curve(y_val, preds)
+
+    avg_prec = metrics.average_precision_score(y_val, preds)
+    roc_auc = metrics.roc_auc_score(y_val, preds)
+   
+    # Save average precision metrics for the model 
+    artifacts = yaml.safe_load(open("params.yaml"))["metrics"]
+    logger.info(f"Average precision and ROC metrics saved to {artifacts['model']}")
+    logger.info(f"Precision metrics - avg_prec:{avg_prec} and roc_auc:{roc_auc}")
+    with open(artifacts['model'], "w") as fd:
+        json.dump({"avg_prec": avg_prec, "roc_auc": roc_auc}, fd, indent=4)
+
+
+    nth_point = math.ceil(len(prc_thresholds) / 1000)
+    prc_points = list(zip(precision, recall, prc_thresholds))[::nth_point]
+    logger.info(f"Precision metrics saved to {artifacts['precision']}")
+    with open(artifacts['precision'], "w") as fd:
+        json.dump(
+        {
+            "prc": [
+                {"precision": p, "recall": r, "threshold": t}
+                for p, r, t in prc_points#   zip(precision, recall, prc_thresholds)
+            ]
+        },
+        fd,
+        indent=4,
+        default=np_encoder,
+    )
+
+    logger.info(f"ROC metrics saved to {artifacts['roc']}")
+    with open(artifacts['roc'], "w") as fd:
+        json.dump(
+        {
+            "roc": [
+                {"fpr": fp, "tpr": tp, "threshold": t}
+                for fp, tp, t in zip(fpr, tpr, roc_thresholds)
+            ]
+        },
+        fd,
+        indent=4,
+        default=np_encoder
+    )
 
 
     # Save production model
-    model_pth = yaml.safe_load(open("params.yaml"))["data"]['model_pth']
+    model_pth = yaml.safe_load(open("params.yaml"))["model"]['model_pth']
+    logger.info(f"Model saved to {model_pth}")
     output = f"{pwd}/{model_pth}"
     try:
         save_model(model,model_pth)
     except BaseException:
         logger.error("Failed to save model")
 
+
+def np_encoder(object):
+    if isinstance(object, np.generic):
+        return object.item()
 
     
 if __name__ == '__main__':

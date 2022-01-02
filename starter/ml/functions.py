@@ -4,10 +4,41 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 from sklearn import metrics
+from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
 import joblib
+import numpy as np
 from numpy import mean
 
+def data_encoder(X, categorical_features, label=None,training=False,encoder=False,lb=False):
+
+    if label is not None:
+        y = X[label]
+        X = X.drop([label], axis=1)
+    else:
+        y = np.array([])
+
+    X_categorical = X[categorical_features].values
+    X_continuous = X.drop(*[categorical_features], axis=1)
+
+    # Transofrm data
+    if training is True:
+        encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
+        lb = LabelBinarizer()
+        X_categorical = encoder.fit_transform(X_categorical)
+        # Return the flattened underlying data as an ndarray.
+        y = lb.fit_transform(y.values).ravel()
+    else:
+        X_categorical = encoder.transform(X_categorical)
+        try:
+            y = lb.transform(y.values).ravel()
+        # Catch the case where y is None because we're doing inference.
+        except AttributeError:
+            pass
+
+    X = np.concatenate([X_continuous, X_categorical], axis=1)
+
+    return X, y, encoder, lb
 
 def train_KNeighbours_model(X_train, y_train):
     """
@@ -146,3 +177,12 @@ def save_model(model, pth):
                     pth: path to store the model
     '''
     joblib.dump(model, pth)
+    
+def load_model(pth):
+    '''
+             saves model to ./models as .pkl file
+                input:
+                    pth: path to store the model
+    '''
+    return joblib.load(pth)
+ 

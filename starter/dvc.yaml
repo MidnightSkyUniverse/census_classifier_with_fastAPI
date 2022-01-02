@@ -50,3 +50,21 @@ stages:
     metrics:
     - metrics/model_scores.json:
         cache: false
+    - metrics/precision.json:
+        cache: false
+    - metrics/roc.json:
+        cache: false
+  slice_predict:
+    cmd: python ml/slice_predict.py
+    deps:
+    - ml/slice_predict.py
+    - data/trainval_data.csv
+    - model/encoder.pkl
+    - model/lb.pkl
+    - model/model.pkl
+    params:
+    - cat_features
+    - label
+    - train.false_
+    outs:
+    - metrics/slice_scores.json

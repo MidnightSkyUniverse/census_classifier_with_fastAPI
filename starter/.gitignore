@@ -1,3 +1,4 @@
 outputs
 .ipynb_checkpoints
 __pycache__
+/metrics.slice_scores

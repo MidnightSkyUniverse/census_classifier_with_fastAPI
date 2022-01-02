@@ -7,9 +7,8 @@ import joblib
 
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
-from model import save_model
+from functions import save_model, data_encoder
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s- %(message)s")
 logger = logging.getLogger()
@@ -63,41 +62,11 @@ def process_data():
     except FileNotFoundError:
         logger.error("Failed to load the file")
 
-    logger.info("Split data into X and y") 
-    label = yaml.safe_load(open("params.yaml"))["label"]
-    if label is not None:
-        y = X[label]
-        X = X.drop([label], axis=1)
-    else:
-        y = np.array([])
-
-    # Separate categorical and numerical data  
-    logger.info("Split X into categorical and continuous") 
     categorical_features = yaml.safe_load(open("params.yaml"))["cat_features"]
-    X_categorical = X[categorical_features].values
-    X_continuous = X.drop(*[categorical_features], axis=1)
-
-    # Transofrm data  
+    label = yaml.safe_load(open("params.yaml"))["label"]
     training = yaml.safe_load(open("params.yaml"))["train"]["true_"]
-    if training is True:
-        logger.info("Create OneHotEncoder and LabelBinarizer & transform data") 
-        encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
-        lb = LabelBinarizer()
-        X_categorical = encoder.fit_transform(X_categorical)
-        # Return the flattened underlying data as an ndarray.
-        y = lb.fit_transform(y.values).ravel()
-    else:
-        logger.info("Transform data with provided OneHotEncoder and LabelBinarizer") 
-        X_categorical = encoder.transform(X_categorical)
-        try:
-            y = lb.transform(y.values).ravel()
-        # Catch the case where y is None because we're doing inference.
-        except AttributeError:
-            pass
-
-    logger.info("Combine categorical and numerical data in X") 
-    X = np.concatenate([X_continuous, X_categorical], axis=1)
-
+    
+    X, y, encoder, lb = data_encoder(X, categorical_features, label=label,training=training,encoder=False,lb=False)
 
     # Save the output of the function
     artifacts = yaml.safe_load(open("params.yaml"))["data"]
@@ -112,8 +81,10 @@ def process_data():
             logger.error(f"Failed to save file {k}")
 
 
+    artifact_models = yaml.safe_load(open("params.yaml"))["model"]
+
     if training is True:
-        for model, k in zip([encoder,lb], [artifacts['encoder_pth'],artifacts['lb_pth']]):
+        for model, k in zip([encoder,lb], [artifact_models['encoder_pth'],artifact_models['lb_pth']]):
             logger.info(f"Saving {k} model")
             output = f"{pwd}/{k}"
             try:
