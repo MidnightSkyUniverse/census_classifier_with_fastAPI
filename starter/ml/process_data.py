@@ -3,7 +3,6 @@
 import logging
 import os
 import yaml
-import joblib
 
 import pandas as pd
 import numpy as np
@@ -56,7 +55,7 @@ def process_data():
 
     trainval_pth = yaml.safe_load(open("params.yaml"))["data"]['trainval_data']
     logger.info(f"Import data from {trainval_pth}")
-    pwd = os.getcwd()    
+    pwd = os.getcwd()
     try:
         X = pd.read_csv(f"{pwd}/{trainval_pth}")
     except FileNotFoundError:
@@ -65,8 +64,9 @@ def process_data():
     categorical_features = yaml.safe_load(open("params.yaml"))["cat_features"]
     label = yaml.safe_load(open("params.yaml"))["label"]
     training = yaml.safe_load(open("params.yaml"))["train"]["true_"]
-    
-    X, y, encoder, lb = data_encoder(X, categorical_features, label=label,training=training,encoder=False,lb=False)
+
+    X, y, encoder, lb = data_encoder(
+        X, categorical_features, label=label, training=training, encoder=False, lb=False)
 
     # Save the output of the function
     artifacts = yaml.safe_load(open("params.yaml"))["data"]
@@ -76,22 +76,21 @@ def process_data():
         output = f"{pwd}/{k}"
         try:
             #pd.DataFrame(df).to_csv(output, index=False)
-            np.save(output,arr)
+            np.save(output, arr)
         except BaseException:
             logger.error(f"Failed to save file {k}")
-
 
     artifact_models = yaml.safe_load(open("params.yaml"))["model"]
 
     if training is True:
-        for model, k in zip([encoder,lb], [artifact_models['encoder_pth'],artifact_models['lb_pth']]):
+        for model, k in zip(
+                [encoder, lb], [artifact_models['encoder_pth'], artifact_models['lb_pth']]):
             logger.info(f"Saving {k} model")
             output = f"{pwd}/{k}"
             try:
-                save_model(model,k)
+                save_model(model, k)
             except BaseException:
                 logger.error("Failed to save encoder and lb")
-
 
 
 if __name__ == '__main__':

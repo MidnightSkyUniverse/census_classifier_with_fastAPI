@@ -2,7 +2,7 @@ stages:
   split_data:
     cmd: python ml/split_data.py
     deps:
-    - data/census.csv
+    - data/clean_data.csv
     - ml/split_data.py
     params:
     - modeling.random_state

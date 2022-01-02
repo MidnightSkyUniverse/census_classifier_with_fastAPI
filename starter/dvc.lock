@@ -3,12 +3,12 @@ stages:
   split_data:
     cmd: python ml/split_data.py
     deps:
-    - path: data/census.csv
-      md5: 145de00f6e6053d3f7044628f9a5b5ff
-      size: 3974474
+    - path: data/clean_data.csv
+      md5: 109c3c826741a590001de91b594b05e3
+      size: 3518605
     - path: ml/split_data.py
-      md5: 00e8c582b8daf98e4de9b308e95c9b83
-      size: 1379
+      md5: ebd116733441b85143a459f74a502dfa
+      size: 1310
     params:
       params.yaml:
         modeling.random_state: 42
@@ -20,6 +20,24 @@ stages:
     - path: data/trainval_data.csv
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
+  kfold:
+    cmd: python ml/kfold.py
+    deps:
+    - path: data/trainval_data.csv
+      md5: ddff0571f7026dba090b1f018c762d5f
+      size: 2991674
+    - path: ml/kfold.py
+      md5: c850e37acea385fe58bd690757055b94
+      size: 2217
+    params:
+      params.yaml:
+        modeling.n_splits: 5
+        modeling.random_state: 42
+        modeling.shuffle: true
+    outs:
+    - path: metrics/kfold_scores.json
+      md5: 626b00fdb1e1865b96ad3b4d1b1b661f
+      size: 761
   process_data:
     cmd: python ml/process_data.py
     deps:
@@ -27,8 +45,8 @@ stages:
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
     - path: ml/process_data.py
-      md5: 0f3cecc182f2e7b01bffa6cc51cfb899
-      size: 3347
+      md5: afe3f8344e01c0024bef3e3b10a500c2
+      size: 3356
     params:
       params.yaml:
         cat_features:
@@ -55,24 +73,6 @@ stages:
     - path: model/lb.pkl
       md5: 5025695085b01a6b6c57df2159831c2d
       size: 403
-  kfold:
-    cmd: python ml/kfold.py
-    deps:
-    - path: data/trainval_data.csv
-      md5: ddff0571f7026dba090b1f018c762d5f
-      size: 2991674
-    - path: ml/kfold.py
-      md5: eaf3297f183afc868726e4b4b5064da4
-      size: 2433
-    params:
-      params.yaml:
-        modeling.n_splits: 5
-        modeling.random_state: 42
-        modeling.shuffle: true
-    outs:
-    - path: metrics/kfold_scores.json
-      md5: 626b00fdb1e1865b96ad3b4d1b1b661f
-      size: 761
   train_predict:
     cmd: python ml/train_predict.py
     deps:
@@ -83,8 +83,8 @@ stages:
       md5: 27206b3098126af65f47978e632163c4
       size: 221536
     - path: ml/train_predict.py
-      md5: f8d4604f120e8466b04a7af58242349a
-      size: 3490
+      md5: 698da9d1c4517ae37ded29805a3920ec
+      size: 3436
     params:
       params.yaml:
         modeling.random_state: 42
@@ -109,8 +109,8 @@ stages:
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
     - path: ml/slice_predict.py
-      md5: b6b8c46643ad85b995c8ef5ab62e2fac
-      size: 2733
+      md5: c6669401277c682ed7dbb210911d5ccf
+      size: 2564
     - path: model/encoder.pkl
       md5: cda18c6561b7ef57f19f48d00d3ff62b
       size: 3898

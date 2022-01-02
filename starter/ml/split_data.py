@@ -2,11 +2,10 @@
 Author: Ali Binkowska
 Date: Dec 2021
 
-The 
+The
 """
 import logging
-import os
-import yaml 
+import yaml
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -19,8 +18,7 @@ def go():
 
     # Get the clean data
     artifacts = yaml.safe_load(open("params.yaml"))["data"]
-    pwd = os.getcwd()
-    pth =  f"{pwd}/{artifacts['clean_data']}"
+    pth = f"{artifacts['clean_data']}"
     logger.info(f"Importe data from {artifacts['clean_data']}")
     try:
         data = pd.read_csv(pth)
@@ -31,20 +29,19 @@ def go():
     modeling = yaml.safe_load(open("params.yaml"))["modeling"]
     logger.info(f"Split the data with test_size={modeling['test_size']}")
     trainval, test = train_test_split(
-            data,
-            test_size = modeling['test_size'],
-            random_state=modeling['random_state'],
+        data,
+        test_size=modeling['test_size'],
+        random_state=modeling['random_state'],
     )
 
     # Save trainval and test data as csv files
-    for df, k in zip([trainval, test], [artifacts['trainval_data'], artifacts['test_data']]):
+    for df, k in zip([trainval, test], [
+                     artifacts['trainval_data'], artifacts['test_data']]):
         logger.info(f"Saving {k} dataset")
-        output = f"{pwd}/{k}"
         try:
-            df.to_csv(output, index=False)
+            df.to_csv(k, index=False)
         except BaseException:
             logger.error("Failed to save file {k}")
-
 
 
 if __name__ == '__main__':

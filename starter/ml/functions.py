@@ -10,7 +10,14 @@ import joblib
 import numpy as np
 from numpy import mean
 
-def data_encoder(X, categorical_features, label=None,training=False,encoder=False,lb=False):
+
+def data_encoder(
+        X,
+        categorical_features,
+        label=None,
+        training=False,
+        encoder=False,
+        lb=False):
 
     if label is not None:
         y = X[label]
@@ -39,6 +46,7 @@ def data_encoder(X, categorical_features, label=None,training=False,encoder=Fals
     X = np.concatenate([X_continuous, X_categorical], axis=1)
 
     return X, y, encoder, lb
+
 
 def train_KNeighbours_model(X_train, y_train):
     """
@@ -156,7 +164,6 @@ def roc_curve_plot(model, test_y, preds, pth):
              None
     '''
     fpr, tpr, thresholds = metrics.roc_curve(test_y, preds)
-    #roc_auc = metrics.auc(fpr, tpr)
     plt.plot(fpr, tpr, label="Random Forest")
     plt.savefig(pth, bbox_inches='tight')
     plt.clf()
@@ -177,7 +184,8 @@ def save_model(model, pth):
                     pth: path to store the model
     '''
     joblib.dump(model, pth)
-    
+
+
 def load_model(pth):
     '''
              saves model to ./models as .pkl file
@@ -185,4 +193,3 @@ def load_model(pth):
                     pth: path to store the model
     '''
     return joblib.load(pth)
- 
