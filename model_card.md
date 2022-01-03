@@ -42,21 +42,20 @@ Model parameters can be changed at `starter/params.yaml` file.
 
 
 Kfolds metrics are stored in form of json file (sample below):
-```json {
+```json 
             "precision": 0.7523427041499331,
             "recall": 0.5884816753926702,
             "fbeta": 0.6603995299647474
-        },
+        
 ```
 
 And slices have metrics stored for every feature:
- ```json {
+ ```json 
             "Category": "occupation",
             "Value": "Craft-repair",
             "precision": 0.9833333333333333,
             "Recal": 0.918562874251497,
             "FBeta": 0.94984520123839
-}
 ```
 
 ## Ethical Considerations
