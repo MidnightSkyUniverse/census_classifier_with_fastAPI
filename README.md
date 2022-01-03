@@ -1,28 +1,31 @@
 # Censuse data analyes 
 
-This project uses Random Forest Classifier to train and predict whether a sample person
-will earn **<=** or **>** than $50K per year based on sencus dataset provided.
+This project has been written for Udaicty degree in DevOps.
+It uses Random Forest Classifier to train and predict whether a sample person
+will earn above or below  $50K per year based on cencus data used to train the model.
 
-This project has been written for Udaicty nanodegree in DevOps
+![model experiment with metrics](/screenshots/dvc_exp_show.png)
+
+##Built With
 Technologies used in the project
-* dvc repro
-* GitHub
-* AWS S3
-* FastAPI
-* Heroku
+* [dvc repro](https://dvc.org/doc/command-reference/repro)
+* [GitHub] (github.com) 
+* [AWS S3] (https://aws.amazon.com/s3/)
+* [FastAPI] (https://fastapi.tiangolo.com/) 
+* [Heroku] (https://heroku.com/)
 
 
-## What the project contains
+## Getting Started
 
 ### Conda environment
-This project was setup using miniconda. Environment is stored in `census_fastAPI.yml`
+This project was setup using miniconda. Config export is stored in `census_fastAPI.yml`
 
 ### Model documentation
 REAMDME defines how to run the project. Model card tells more about the model used and metrics
 that comes with the model.
 ```
 README.md
-model_card.md
+model_card.md [Contribution guidelines for this project](model_card.md)
 screenshots
 ```
 
