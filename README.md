@@ -1,14 +1,16 @@
 # Censuse data analyes 
 
-### What the project contains
+## What the project contains
 
-#### Conda config for this project
-`census_fastAPI.yml`
+### Conda environment
+This project was setup using miniconda. Environment is stored in `census_fastAPI.yml`
 
-#### Model documentation - check Model Card for details about the model and its usage
+### Model documentation
+REAMDME defines how to run the project. Model card tells more about the model used and metrics
+that comes with the model.
 ```
 README.md
-model_card_template.md
+model_card.md
 screenshots
 ```
 

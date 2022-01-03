@@ -11,21 +11,21 @@ stages:
       size: 1310
     params:
       params.yaml:
-        modeling.random_state: 42
-        modeling.test_size: 0.15
+        modeling.random_state: 1
+        modeling.test_size: 0.1
     outs:
     - path: data/test_data.csv
-      md5: a9c909bff38974cea06a2624322f7f85
-      size: 527086
+      md5: a21ae607f710b3a9bfd698e31777933d
+      size: 352144
     - path: data/trainval_data.csv
-      md5: ddff0571f7026dba090b1f018c762d5f
-      size: 2991674
+      md5: 56e29dd7a4bdcb215af19831b8a906e0
+      size: 3166616
   process_data:
     cmd: python ml/process_data.py
     deps:
     - path: data/trainval_data.csv
-      md5: ddff0571f7026dba090b1f018c762d5f
-      size: 2991674
+      md5: 56e29dd7a4bdcb215af19831b8a906e0
+      size: 3166616
     - path: ml/process_data.py
       md5: afe3f8344e01c0024bef3e3b10a500c2
       size: 3356
@@ -44,11 +44,11 @@ stages:
         train.true_: true
     outs:
     - path: data/X.npy
-      md5: ddb8ba65fa6c528fefe5733549e7346d
-      size: 23912192
+      md5: c25f360ab477aefc85a8381927029d79
+      size: 25318784
     - path: data/y.npy
-      md5: 27206b3098126af65f47978e632163c4
-      size: 221536
+      md5: 925e5cae69be636bce01361abbabb6c6
+      size: 234560
     - path: model/encoder.pkl
       md5: cda18c6561b7ef57f19f48d00d3ff62b
       size: 3898
@@ -59,37 +59,37 @@ stages:
     cmd: python ml/train_predict.py
     deps:
     - path: data/X.npy
-      md5: ddb8ba65fa6c528fefe5733549e7346d
-      size: 23912192
+      md5: c25f360ab477aefc85a8381927029d79
+      size: 25318784
     - path: data/y.npy
-      md5: 27206b3098126af65f47978e632163c4
-      size: 221536
+      md5: 925e5cae69be636bce01361abbabb6c6
+      size: 234560
     - path: ml/train_predict.py
       md5: 698da9d1c4517ae37ded29805a3920ec
       size: 3436
     params:
       params.yaml:
-        modeling.random_state: 42
-        modeling.test_size: 0.15
+        modeling.random_state: 1
+        modeling.test_size: 0.1
     outs:
     - path: metrics/model_scores.json
-      md5: c6a63a422015fa411b85501fa77801cf
-      size: 72
+      md5: 56d4228c165ab2bd5e29b78c8cbf562c
+      size: 73
     - path: metrics/precision.json
-      md5: a554fdf12424049807d9af570ad583e7
-      size: 276
+      md5: 95f3cd2a13c16fc0ed547a7067421caa
+      size: 277
     - path: metrics/roc.json
-      md5: d0afe581ee99b016337a081c85154448
+      md5: adb18a266ae7b95f71ef3937f60ee8f9
       size: 339
     - path: model/model.pkl
-      md5: 40254a5a9c415fd8db052ddbe7e7aa78
-      size: 59689975
+      md5: 74d69cf5264c6a45aab8b8b19ebabd2e
+      size: 66010423
   slice_predict:
     cmd: python ml/slice_predict.py
     deps:
     - path: data/trainval_data.csv
-      md5: ddff0571f7026dba090b1f018c762d5f
-      size: 2991674
+      md5: 56e29dd7a4bdcb215af19831b8a906e0
+      size: 3166616
     - path: ml/slice_predict.py
       md5: c6669401277c682ed7dbb210911d5ccf
       size: 2564
@@ -100,8 +100,8 @@ stages:
       md5: 5025695085b01a6b6c57df2159831c2d
       size: 403
     - path: model/model.pkl
-      md5: 40254a5a9c415fd8db052ddbe7e7aa78
-      size: 59689975
+      md5: 74d69cf5264c6a45aab8b8b19ebabd2e
+      size: 66010423
     params:
       params.yaml:
         cat_features:
@@ -117,23 +117,23 @@ stages:
         train.false_: false
     outs:
     - path: metrics/slice_scores.json
-      md5: 209d520df7f557656d276a1940549199
-      size: 20865
+      md5: 5e4efa9b06692deed8e93448596e6912
+      size: 20458
   kfold:
     cmd: python ml/kfold.py
     deps:
     - path: data/trainval_data.csv
-      md5: ddff0571f7026dba090b1f018c762d5f
-      size: 2991674
+      md5: 56e29dd7a4bdcb215af19831b8a906e0
+      size: 3166616
     - path: ml/kfold.py
       md5: c850e37acea385fe58bd690757055b94
       size: 2217
     params:
       params.yaml:
-        modeling.n_splits: 5
-        modeling.random_state: 42
+        modeling.n_splits: 8
+        modeling.random_state: 1
         modeling.shuffle: true
     outs:
     - path: metrics/kfold_scores.json
-      md5: 626b00fdb1e1865b96ad3b4d1b1b661f
-      size: 761
+      md5: bbbc27852eac2529a5c144ded1a09ada
+      size: 1206

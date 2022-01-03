@@ -2,11 +2,11 @@ main:
   project_name: census
   experiment_name: dev
 modeling:
-  n_splits: 5 
+  n_splits: 8 
   shuffle: True
-  random_state: 42
-  max_iter: 150
-  test_size: .15
+  random_state: 1
+  max_iter: 250
+  test_size: .1
 metrics: 
   beta: 1
   zero_division: 1
