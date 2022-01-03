@@ -1,4 +1,4 @@
-# Censuse data analyes 
+## Censuse data analyes 
 
 This project has been written for Udaicty degree in DevOps.
 It uses Random Forest Classifier to train and predict whether a sample person
@@ -6,21 +6,21 @@ will earn above or below  $50K per year based on cencus data used to train the m
 
 ![model experiment with metrics](/screenshots/dvc_exp_show.png)
 
-##Built With
+### Built With
 Technologies used in the project
 * [dvc repro](https://dvc.org/doc/command-reference/repro)
-* [GitHub] (github.com) 
-* [AWS S3] (https://aws.amazon.com/s3/)
-* [FastAPI] (https://fastapi.tiangolo.com/) 
-* [Heroku] (https://heroku.com/)
+* [GitHub](github.com) 
+* [AWS S3](https://aws.amazon.com/s3/)
+* [FastAPI](https://fastapi.tiangolo.com/) 
+* [Heroku](https://heroku.com/)
 
 
-## Getting Started
+### Getting Started
 
-### Conda environment
+#### Conda environment
 This project was setup using miniconda. Config export is stored in `census_fastAPI.yml`
 
-### Model documentation
+#### Model documentation
 REAMDME defines how to run the project. Model card tells more about the model used and metrics
 that comes with the model.
 ```
@@ -29,7 +29,7 @@ model_card.md [Contribution guidelines for this project](model_card.md)
 screenshots
 ```
 
-#### Model execution
+##### Model execution
 ```
 starter
   EDA.ipynb
@@ -74,7 +74,7 @@ To visualise stages use `dvc dag`:
 The original dataset stored in `data/census.csv` is cleaned with jupyter-notebook file `EDA.jpynb`.
 All the other stages are executed with `dvc repro`.
 
-#### Stages for dvc pipeline
+##### Stages for dvc pipeline
 First stage is **split_data**. All the others depend on it.
 Stage called **kfold** can be executed independently as it stores only metrics
 Stages **process_data** has to predecess **train_predict**. 
