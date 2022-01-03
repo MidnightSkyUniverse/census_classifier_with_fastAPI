@@ -41,34 +41,36 @@ starter
 This project is built with `dvc pipeline`. Stages are defined in `dvc.yaml`. 
 To visualise stages use `dvc dag`:
 ```
-                                                     +---------------------------------+
-                                                     | starter/data/clean_data.csv.dvc |
-                                                     +---------------------------------+
-                                                                       *
-                                                                       *
-                                                                       *
-                                                       +-----------------------------+
-                                                       | starter/dvc.yaml:split_data |*******
-                                               ********+------------------------------
-                                      *********                       *                                    
-                            **********                               *                                      
-                       *****                                         *                                     
-+------------------------+                          +-------------------------------+                     
-| starter/dvc.yaml:kfold |                          | starter/dvc.yaml:process_data |                    
-+------------------------+                          +-------------------------------+                   
-                                                    *****                         *****                
-                                               *****                                   ****           
-                                            ***                                            *****   
-             +--------------------------------+                                        *** 
-             | starter/dvc.yaml:train_predict |                                          *
-             +--------------------------------+*******                                   *
-                                                    ***********                        *
-                                                             *********               * 
-                                                               +--------------------------------+
-                                                               | starter/dvc.yaml:slice_predict |
-                                                               +--------------------------------+
+               +-------------------------+
+               | data/clean_data.csv.dvc |
+               +-------------------------+
+                            *
+                            *
+                            *
+                     +------------+
+                     | split_data |***
+                   **+------------+   ******
+              *****        *                ******
+           ***            *                       ******
+        ***               *                             ******
++-------+         +--------------+                            ****
+| kfold |         | process_data |                               *
++-------+         +--------------+                               *
+                   **           **                               *
+                 **               **                             *
+               **                   **                           *
+    +---------------+                 **                       ***
+    | train_predict |                  *                   ****
+    +---------------+***               *               ****
+                        *****          *          *****
+                             ****      *      ****
+                                 ***   *   ***
+                              +---------------+
+                              | slice_predict |
+                              +---------------+
 
 ```
+
 The original dataset stored under `data/census.csv` is cleaned with jupyter-notebook `EDA.jpynb`.
 All the other stages are executed with `dvc repro`.
 
