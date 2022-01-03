@@ -8,7 +8,7 @@ will earn above or below  $50K per year based on cencus data used to train the m
 
 ### Built With
 Technologies used in the project
-* [dvc repro](https://dvc.org/doc/command-reference/repro)
+* [dvc pipeline](https://dvc.org/doc/start/data-pipelines)
 * [GitHub](github.com) 
 * [AWS S3](https://aws.amazon.com/s3/)
 * [FastAPI](https://fastapi.tiangolo.com/) 
@@ -18,18 +18,16 @@ Technologies used in the project
 ### Getting Started
 
 #### Conda environment
-This project was setup using miniconda. Config export is stored in `census_fastAPI.yml`
+This project was setup using miniconda. To setup the enviornment run:
+`conda env create -f census_fastAPI.yml`
 
 #### Model documentation
-REAMDME defines how to run the project. Model card tells more about the model used and metrics
-that comes with the model.
-```
-README.md
-model_card.md [Contribution guidelines for this project](model_card.md)
-screenshots
-```
+This README defines how to run the project. [Model Card](model_card.md) tells more about 
+the model used and metrics that comes with the model.
+[Screenshots](/screenshots/) contains visuals from running the project from command line
 
-##### Model execution
+
+#### Model execution
 ```
 starter
   EDA.ipynb
@@ -71,10 +69,10 @@ To visualise stages use `dvc dag`:
                                                                +--------------------------------+
 
 ```
-The original dataset stored in `data/census.csv` is cleaned with jupyter-notebook file `EDA.jpynb`.
+The original dataset stored under `data/census.csv` is cleaned with jupyter-notebook `EDA.jpynb`.
 All the other stages are executed with `dvc repro`.
 
-##### Stages for dvc pipeline
+#### Stages for dvc pipeline
 First stage is **split_data**. All the others depend on it.
 Stage called **kfold** can be executed independently as it stores only metrics
 Stages **process_data** has to predecess **train_predict**. 
@@ -91,12 +89,12 @@ Script functions.py have functions that are used in pipeline stages.
 All the other scripts in this folder represent pipeline stages.
 
 
-#### Model metrics
+### Model metrics
 All metrics are stored in `metrics` folder in json format
 Use `dvc exp show` to show model performance. For short `dvc metrics show` will do.
 More about the metrics you can find in Model Card
 
-#### Model tests
+### Model tests
 ```
 tests
   sanitycheck.py
@@ -107,7 +105,7 @@ Script called `sanitycheck.py` is provided by Udacity and it's used to check
 whether FastAPI is being properly tested with both POST and GET requests.
 It can be run manually with `python` command.
 
-#### Heroku config files
+### Heroku config files
 ```
 Aptfile
 Procfile
@@ -133,12 +131,9 @@ Continuous Integration is provided by GitHub.
 `pylint` and `pytest` are executed and so before the app is developed to Heroku,
 the checks have to pass on GitHub.
 
-#### Udacity
-```
-CODEOWNERS
-LICENSE.txt
-```
 
+### Contact
+Project Link: https://github.com/MidnightSkyUniverse/census_classifier_with_fastAPI
 
 
 
