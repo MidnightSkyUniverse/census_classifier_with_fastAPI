@@ -108,10 +108,13 @@ More about the metrics you can find in Model Card
 ### Model tests
 ```
 tests
+  conftest.py
+  test_fastapi.py
+  test_model.py
   sanitycheck.py
 ```
 Tests are executed with `pytest` command as part of GitHu workflow. 
-There are 7 tests implemented currently.
+There are 7 tests implemented currently and the config is stored in `conftest.py`.
 Script called `sanitycheck.py` is provided by Udacity and it's used to check
 whether FastAPI is being properly tested with both POST and GET requests.
 It can be run manually with `python` command.

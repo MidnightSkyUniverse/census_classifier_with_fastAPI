@@ -1,3 +1,9 @@
+"""
+    Author: Ali Binkowska
+    Date: Dec 2021
+
+    This is a simple script to test POST request on Heroku with FastAPI
+"""
 import json
 import requests
 import logging

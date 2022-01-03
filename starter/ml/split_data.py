@@ -2,7 +2,7 @@
 Author: Ali Binkowska
 Date: Dec 2021
 
-The
+This is the first step of the model pipeline
 """
 import logging
 import yaml

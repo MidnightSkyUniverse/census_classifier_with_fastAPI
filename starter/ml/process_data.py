@@ -1,5 +1,10 @@
 """
+Author: Ali Binkowska
+Date: Dec 2021
+
+This step goes after `split_data` and it encodes the features before the data can be used for trianing
 """
+
 import logging
 import os
 import yaml

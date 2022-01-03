@@ -2,7 +2,8 @@
 Author: Ali Binkowska
 Date: Dec 2021
 
-The
+This is a pipeline component that is independent and can be executed after `split_data` step
+This file is used to evaulate models that were trained on k-folds
 """
 import logging
 import yaml

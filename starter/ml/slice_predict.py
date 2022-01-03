@@ -2,7 +2,7 @@
 Author: Ali Binkowska
 Date: Dec 2021
 
-The
+This script uses saved model, encoder and lb to evaluate model performance on slices of categorical data
 """
 # from sklearn.model_selection import train_test_split
 import os

@@ -2,7 +2,7 @@
 Author: Ali Binkowska
 Date: Dec 2021
 
-The
+This script trains and evaluates the Random Forest Classifier that uses parameters from params.yaml file
 """
 # from sklearn.model_selection import train_test_split
 import logging

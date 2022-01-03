@@ -1,3 +1,10 @@
+"""
+Author: Ali Binkowska
+Date: Dec 2021
+
+This file contains functions used in the pipeline to train and test model
+"""
+
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression

@@ -2,7 +2,7 @@
 Author: Ali Binkowska
 Date: Dec 2021
 
-This app is used to run Random Forest Classifier on census data using FastApi and Heroku'
+This app is FastAPI interface used to run Random Forest Classifier on census data on Heroku'
 """
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
