@@ -20,24 +20,6 @@ stages:
     - path: data/trainval_data.csv
       md5: ddff0571f7026dba090b1f018c762d5f
       size: 2991674
-  kfold:
-    cmd: python ml/kfold.py
-    deps:
-    - path: data/trainval_data.csv
-      md5: ddff0571f7026dba090b1f018c762d5f
-      size: 2991674
-    - path: ml/kfold.py
-      md5: c850e37acea385fe58bd690757055b94
-      size: 2217
-    params:
-      params.yaml:
-        modeling.n_splits: 5
-        modeling.random_state: 42
-        modeling.shuffle: true
-    outs:
-    - path: metrics/kfold_scores.json
-      md5: 626b00fdb1e1865b96ad3b4d1b1b661f
-      size: 761
   process_data:
     cmd: python ml/process_data.py
     deps:
@@ -102,6 +84,24 @@ stages:
     - path: model/model.pkl
       md5: 40254a5a9c415fd8db052ddbe7e7aa78
       size: 59689975
+  kfold:
+    cmd: python ml/kfold.py
+    deps:
+    - path: data/trainval_data.csv
+      md5: ddff0571f7026dba090b1f018c762d5f
+      size: 2991674
+    - path: ml/kfold.py
+      md5: c850e37acea385fe58bd690757055b94
+      size: 2217
+    params:
+      params.yaml:
+        modeling.n_splits: 5
+        modeling.random_state: 42
+        modeling.shuffle: true
+    outs:
+    - path: metrics/kfold_scores.json
+      md5: 626b00fdb1e1865b96ad3b4d1b1b661f
+      size: 761
   slice_predict:
     cmd: python ml/slice_predict.py
     deps:

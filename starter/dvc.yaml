@@ -66,5 +66,6 @@ stages:
     - cat_features
     - label
     - train.false_
-    outs:
-    - metrics/slice_scores.json
+    metrics:
+    - metrics/slice_scores.json:
+        cache: false
