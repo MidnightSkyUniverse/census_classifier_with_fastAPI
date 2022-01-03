@@ -19,7 +19,7 @@ Technologies used in the project
 
 #### Conda environment
 This project was setup using miniconda. To setup the enviornment run:
-`conda env create -f census_fastAPI.yml`
+```conda env create -f census_fastAPI.yml```
 
 #### Model documentation
 This README defines how to run the project. [Model Card](model_card.md) tells more about 
@@ -73,6 +73,15 @@ The original dataset stored under `data/census.csv` is cleaned with jupyter-note
 All the other stages are executed with `dvc repro`.
 
 #### Stages for dvc pipeline
+```
+> dvc stage list
+split_data     Outputs data/test_data.csv, data/trainval_data.csv
+process_data   Outputs data/X.npy, data/y.npy, model/encoder.pkl, model/lb.pkl
+kfold          Reports metrics/kfold_scores.json
+train_predict  Outputs model/model.pkl; Reports metrics/model_scores.json, metrics/precision.j…
+slice_predict  Reports metrics/slice_scores.json
+```
+
 First stage is **split_data**. All the others depend on it.
 Stage called **kfold** can be executed independently as it stores only metrics
 Stages **process_data** has to predecess **train_predict**. 
