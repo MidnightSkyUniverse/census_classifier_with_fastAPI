@@ -2,7 +2,6 @@ from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
@@ -152,22 +151,6 @@ def inference(model, X_test):
     """
     preds = model.predict(X_test)
     return preds
-
-
-def roc_curve_plot(model, test_y, preds, pth):
-    '''
-        creates and stores the feature importances in pth
-        input:
-            model: model object containing feature_importances_
-            X_data: pandas dataframe of X values
-        output:
-             None
-    '''
-    fpr, tpr, thresholds = metrics.roc_curve(test_y, preds)
-    plt.plot(fpr, tpr, label="Random Forest")
-    plt.savefig(pth, bbox_inches='tight')
-    plt.clf()
-
 
 def mean_calculation(metrics):
 
