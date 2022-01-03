@@ -5,11 +5,11 @@ will earn **<=** or **>** than $50K per year based on sencus dataset provided.
 
 This project has been written for Udaicty nanodegree in DevOps
 Technologies used in the project
-a. dvc repro
-b. GitHub
-c. AWS S3
-d. FastAPI
-e. Heroku
+* dvc repro
+* GitHub
+* AWS S3
+* FastAPI
+* Heroku
 
 
 ## What the project contains
@@ -68,9 +68,11 @@ To visualise stages use `dvc dag`:
                                                                +--------------------------------+
 
 ```
-The original dataset stored in `data/census.csv` is cleaned with jupyter-notebook file EDA.jpynb.
-All the other stages are executed with `dvc repro`
-Firs stage is **split_data**. All the others depend on it.
+The original dataset stored in `data/census.csv` is cleaned with jupyter-notebook file `EDA.jpynb`.
+All the other stages are executed with `dvc repro`.
+
+#### Stages for dvc pipeline
+First stage is **split_data**. All the others depend on it.
 Stage called **kfold** can be executed independently as it stores only metrics
 Stages **process_data** has to predecess **train_predict**. 
 Stage **slice_predict** depends on the model that is stored in stage **train_predict**.
@@ -88,8 +90,8 @@ All the other scripts in this folder represent pipeline stages.
 
 #### Model metrics
 All metrics are stored in `metrics` folder in json format
-
 Use `dvc exp show` to show model performance. For short `dvc metrics show` will do.
+More about the metrics you can find in Model Card
 
 #### Model tests
 ```
