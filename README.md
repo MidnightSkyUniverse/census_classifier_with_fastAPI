@@ -1,5 +1,17 @@
 # Censuse data analyes 
 
+This project uses Random Forest Classifier to train and predict whether a sample person
+will earn **<=** or **>** than $50K per year based on sencus dataset provided.
+
+This project has been written for Udaicty nanodegree in DevOps
+Technologies used in the project
+a. dvc repro
+b. GitHub
+c. AWS S3
+d. FastAPI
+e. Heroku
+
+
 ## What the project contains
 
 ### Conda environment
@@ -27,7 +39,7 @@ starter
 ```
 This project is built with `dvc pipeline`. Stages are defined in `dvc.yaml`. 
 To visualise stages use `dvc dag`:
-
+```
                                                      +---------------------------------+
                                                      | starter/data/clean_data.csv.dvc |
                                                      +---------------------------------+
@@ -36,27 +48,26 @@ To visualise stages use `dvc dag`:
                                                                        *
                                                        +-----------------------------+
                                                        | starter/dvc.yaml:split_data |*******
-                                               ********+-----------------------------+       **************
-                                      *********                       *                                    ***************
-                            **********                               *                                                    ***************
-                       *****                                         *                                                                   **************
-+------------------------+                          +-------------------------------+                                                                  ********
-| starter/dvc.yaml:kfold |                          | starter/dvc.yaml:process_data |                                                                         *
-+------------------------+                          +-------------------------------+                                                                         *
-                                                    *****                         *****                                                                       *
-                                               *****                                   ****                                                                   *
-                                            ***                                            *****                                                              *
-                      +--------------------------------+                                        ***                                                       *****
-                      | starter/dvc.yaml:train_predict |                                          *                                            ***********
-                      +--------------------------------+*******                                   *                                   *********
-                                                               ***********                        *                        ***********
-                                                                          *********               *               *********
-                                                                                   ******         *         ******
-                                                                                  +--------------------------------+
-                                                                                  | starter/dvc.yaml:slice_predict |
-                                                                                  +--------------------------------+
+                                               ********+------------------------------
+                                      *********                       *                                    
+                            **********                               *                                      
+                       *****                                         *                                     
++------------------------+                          +-------------------------------+                     
+| starter/dvc.yaml:kfold |                          | starter/dvc.yaml:process_data |                    
++------------------------+                          +-------------------------------+                   
+                                                    *****                         *****                
+                                               *****                                   ****           
+                                            ***                                            *****   
+             +--------------------------------+                                        *** 
+             | starter/dvc.yaml:train_predict |                                          *
+             +--------------------------------+*******                                   *
+                                                    ***********                        *
+                                                             *********               * 
+                                                               +--------------------------------+
+                                                               | starter/dvc.yaml:slice_predict |
+                                                               +--------------------------------+
 
-
+```
 The original dataset stored in `data/census.csv` is cleaned with jupyter-notebook file EDA.jpynb.
 All the other stages are executed with `dvc repro`
 Firs stage is **split_data**. All the others depend on it.
@@ -83,12 +94,13 @@ Use `dvc exp show` to show model performance. For short `dvc metrics show` will 
 #### Model tests
 ```
 tests
-sanitycheck.py
+  sanitycheck.py
 ```
 Tests are executed with `pytest` command as part of GitHu workflow. 
 There are 7 tests implemented currently.
-Script called `sanitycheck.py` is provided by Udacity and it's about to check
+Script called `sanitycheck.py` is provided by Udacity and it's used to check
 whether FastAPI is being properly tested with both POST and GET requests.
+It can be run manually with `python` command.
 
 #### Heroku config files
 ```
