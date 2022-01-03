@@ -15,21 +15,21 @@ Author: Ali Binkowska
 Data: Dec 2021
 
 Model used is Random Forest Classifier. Dataset is census data with ~60,000 records.
-Model is set to perform 150 max_iter, the model is trained on 60% of dataset, 20% is reserved
-for validation and 20% for tests.
+The model predics whether a person is a group of people earning above or below $50K
 
-Hydra is used to manage variables. Hydra config can be found under:
-starter/config.yaml
+The model is trained on 70% of dataset, 15% is reserved for validation and 15% for tests.
+
+There is also an option to trin model on KFolds and separate metrics are generated for that
+
 
 There are also predictions done on categorical slices of data. The results are stored to:
-metrics/slice_performance.txt
+metrics/slice_scores.json
 
-ROC curve chart is presented under:
-metrics/roc_curve.png
 
 ## Intended Use
 That is a trianing project for Udacity nanodegree program.
-The intention is to automate CI/CD with FastAPI and Heroku. 
+The intention is to automate CI/CD with FastAPI and Heroku.
+I use DVC to record pipeline stages and metrics. DVC with S3 is used to store artifacts remotely. 
 
 
 ## Training Data
@@ -38,7 +38,7 @@ is in a group of those earning above or below $50,000
 
 
 ## Evaluation Data
-20% of the census data is used to validate the model
+15% of the census data is used to validate the model
 
 
 ## Metrics
