@@ -1,7 +1,7 @@
 # Model Card
 
-Author: Ali Binkowska
-Last updated: Jan 2022
+- Author: Ali Binkowska
+- Last updated: Jan 2022
 
 
 ## Model Details
@@ -33,10 +33,10 @@ Census data are provided with the project under `data/census.csv`
 
 ## Metrics
 
-Metrics are stored in `starter/emtrics/` folder.
+Metrics are stored in `starter/metrics/` folder.
 For the model, average precision and ROC AUC is being calculated:
 
-[sample metrics](/screenshots/dvc_exp_show.png)
+![sample metrics](/screenshots/dvc_exp_show.png)
 
 Model parameters can be changed at `starter/params.yaml` file.
 
@@ -47,7 +47,6 @@ Kfolds metrics are stored in form of json file (sample below):
             "recall": 0.5884816753926702,
             "fbeta": 0.6603995299647474
         },
-}
 ```
 
 And slices have metrics stored for every feature:
