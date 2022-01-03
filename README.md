@@ -2,46 +2,54 @@
 
 ### What the project contains
 
-#### Model documentation
+#### Conda config for this project
+`census_fastAPI.yml`
+
+#### Model documentation - check Model Card for details about the model and its usage
+```
 README.md
 model_card_template.md
 screenshots
-
+```
 
 #### Model execution
-EDA.ipynb
-data
-environment-github.yml
-model
-?setup.py
+```
 starter
+  EDA.ipynb
+  data
+```
 
 #### Model tests
+```
 tests
 sanitycheck.py
+```
 
-
-#### Model metrics
-metrics
 
 #### Heroku config files
-
+```
 Aptfile
 Procfile
 requirements.txt
 runtime.txt
+```
 
-#### Heroku execution
-
+#### FastAPI
+```
 main.py
-get_data_to_heroku.py
-post_data.py
-post_data_to_heroku.py
+fastAPI_request_scripts
+```
+
+### GitHub workflow config
+```
+environment.yml
+```
 
 #### Udacity
-
+```
 CODEOWNERS
 LICENSE.txt
+```
 
 
 
