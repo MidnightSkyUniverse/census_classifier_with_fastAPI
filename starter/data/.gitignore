@@ -8,3 +8,6 @@
 /X.npy
 /y.npy
 /clean_data.csv
+/cleaned_data.csv.dvc
+/census.csv.dvc
+
