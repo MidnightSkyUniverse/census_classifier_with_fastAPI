@@ -13,3 +13,7 @@ repos:
         language: system
         always_run: true
         pass_filenames: false
+      - id: pytest
+        name: pytest
+        entry: pytest
+        always_run: true
