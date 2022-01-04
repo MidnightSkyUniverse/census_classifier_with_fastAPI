@@ -2,18 +2,29 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
     hooks:
-      - id: no-commit-to-branch
-	  - id: check-merge-conflict
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-yaml
   - repo: local
-     hooks:
-      - id: flake8
-        name: flake8
+    hooks:
+      - id: flake8-check-1
+        name: flake8-check-1
         entry: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        language: system
+        always_run: true
+        pass_filenames: false
+      - id: flake8-check-2
+        name: flake8-check-2
         entry: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         language: system
         always_run: true
         pass_filenames: false
-      - id: pytest
-        name: pytest
-        entry: pytest
-        always_run: true
+
+#      - id: pytest-check
+#        name: pytest-check
+#        entry: pytest
+#        types: [python]
+#        language: system
+#        always_run: true
+#        pass_filenames: false
