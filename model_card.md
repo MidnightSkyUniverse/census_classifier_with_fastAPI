@@ -63,6 +63,10 @@ Census data are data collected from people. The answers depend on how those peop
 themselves to be seen and represented. And depend on how much people want to reveal about themselves.
 This kind od data can be influenced by politics, other people from the bubbles we live in
 and our wishes.
+As per slice performance metrics, some categorical values bring ideal predition.
+The data are insufficient for 'nationality' feature to trust that the model would handle well
+larger data set.
+
 
 ## Caveats and Recommendations
 This model has very basic parameters set and before it is used to do real job, the parameters

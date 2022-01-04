@@ -3,7 +3,7 @@ repos:
     rev: v4.1.0
     hooks:
       - id: check-merge-conflict
-      - id: trailing-whitespace
+  #    - id: trailing-whitespace
       - id: check-added-large-files
       - id: check-yaml
   - repo: local
