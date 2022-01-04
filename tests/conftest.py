@@ -73,12 +73,10 @@ def process_data_fixture(data, encoder, lb):
         "native-country",
     ]
 
-    #y = data['salary']
     X = data.drop(['salary'], axis=1)
 
     X, y, _, _ = data_encoder(X, categorical_features=cat_features,
                               label=None, training=False, encoder=encoder, lb=lb)
-    #X, y, _, _ = process_data(X, categorical_features=cat_features, training=True)
     return X, y
 
 
@@ -126,7 +124,6 @@ def json_sample(request):
         'salary': '>50K'
     }
 
-    # return json.dumps(payload)
     return payload
 
 
@@ -150,5 +147,27 @@ def json_sample_2(request):
         'salary': '<=50K'
     }
 
-    # return json.dumps(payload)
+    return payload
+
+
+@pytest.fixture(scope='session')
+def json_sample_with_error(request):
+    payload = {
+        'age': 66,
+        'workclass': 'Private',
+        'fnlgt': 211781,
+        'education': "Masters",
+        'education-num': "Fourteen", #14,
+        'marital-status': 'Never-married',
+        'occupation': 'Prof-speciality',
+        'relationship': 'Not-in-family',
+        'race': 'Black',
+        'sex': 'Female',
+        'capital-gain': 0,
+        'capital-loss': 0,
+        'hours-per-week': 55,
+        'native-country': 'United-States',
+        'salary': '<=50K'
+    }
+
     return payload

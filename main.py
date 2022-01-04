@@ -9,13 +9,13 @@ from pydantic import BaseModel, Field
 from typing import Optional
 import pandas as pd
 import joblib
-#import uvicorn
+import uvicorn
 import logging
 import os
 
 from starter.ml.functions import data_encoder
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 logger = logging.getLogger()
 
 # DVC on Heroku - required code
@@ -27,6 +27,15 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 app = FastAPI()
+
+# Load models on startup to speed-up POST request step
+@app.on_event("startup")
+async def startup_event():
+    global model, encoder, binarizer
+    model = joblib.load("starter/model/model.pkl")
+    encoder = joblib.load("starter/model/encoder.pkl")
+    binarizer = joblib.load("starter/model/lb.pkl")
+
 
 
 # Home site with welcome message - GET request
@@ -40,41 +49,42 @@ async def get_root() -> dict:
     }
 
 
+
+# Alias Generator funtion for class CensusData
+def replace_dash(string: str) -> str:
+    return string.replace('_','-')
+
 # Class definition of the data that will be provided as POST request
 class CensusData(BaseModel):
     age: int
     workclass: str
     fnlgt: int
     education: str
-    education_num: int = Field(..., alias='education-num')
-    marital_status: str = Field(..., alias='marital-status')
+    education_num: int #= Field(..., alias='education-num')
+    marital_status: str #= Field(..., alias='marital-status')
     occupation: str
     relationship: str
     race: str
     sex: str
-    capital_gain: int = Field(..., alias='capital-gain')
-    capital_loss: int = Field(..., alias='capital-loss')
-    hours_per_week: int = Field(..., alias='hours-per-week')
-    native_country: str = Field(..., alias='native-country')
+    capital_gain: int #= Field(..., alias='capital-gain')
+    capital_loss: int #= Field(..., alias='capital-loss')
+    hours_per_week: int #= Field(..., alias='hours-per-week')
+    native_country: str #= Field(..., alias='native-country')
     salary: Optional[str]
+
+    class Config:
+        alias_generator = replace_dash
 
 
 # POST request to /predict site. Used to validate model with sample census data
 @app.post('/predict')
 async def predict(input: CensusData):
     """
-    POST request that will provide sample census data and expect a prediction 
+    POST request that will provide sample census data and expect a prediction
 
     Output:
         0 or 1
     """
-    # Load model, encoder and lb
-    try:
-        model = joblib.load("starter/model/model.pkl")
-        encoder = joblib.load("starter/model/encoder.pkl")
-        lb = joblib.load("starter/model/lb.pkl")
-    except BaseException:
-        logging.error('Failed to load model, encoder or lb')
 
     cat_features = [
         "workclass",
@@ -95,7 +105,7 @@ async def predict(input: CensusData):
     # Process the data
     X_train, _, _, _ =data_encoder(
                 input_df, categorical_features=cat_features, \
-                label='salary', training=False, encoder=encoder, lb=lb)
+                label='salary', training=False, encoder=encoder, lb=binarizer)
 
     preds = int(model.predict(X_train)[0])
     logger.info(f"Preds: {preds}")
@@ -103,7 +113,5 @@ async def predict(input: CensusData):
 
 
 #if __name__ == "__main__":
-#    """
-#    Uvicorn will launch FastAPI website on localhost, port 8000
-#    """
+
 #    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

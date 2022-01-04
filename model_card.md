@@ -20,7 +20,7 @@ There are also predictions done on categorical slices of data. The results are s
 ## Intended Use
 That is a trianing project for Udacity nano degree program.
 The intention is to automate CI/CD for Machine Learning project with FastAPI and Heroku.
-I use DVC to record pipeline stages and metrics. DVC with S3 is used to store artifacts remotely. 
+I use DVC to record pipeline stages and metrics. DVC with S3 is used to store artifacts remotely.
 
 
 ## Training Data
@@ -42,15 +42,15 @@ Model parameters can be changed at `starter/params.yaml` file.
 
 
 Kfolds metrics are stored in form of json file (sample below):
-```json 
+```json
             "precision": 0.7523427041499331,
             "recall": 0.5884816753926702,
             "fbeta": 0.6603995299647474
-        
+
 ```
 
 And slices have metrics stored for every feature:
- ```json 
+ ```json
             "Category": "occupation",
             "Value": "Craft-repair",
             "precision": 0.9833333333333333,
@@ -59,6 +59,13 @@ And slices have metrics stored for every feature:
 ```
 
 ## Ethical Considerations
-
+Census data are data collected from people. The answers depend on how those people would like
+themselves to be seen and represented. And depend on how much people want to reveal about themselves.
+This kind od data can be influenced by politics, other people from the bubbles we live in
+and our wishes.
 
 ## Caveats and Recommendations
+This model has very basic parameters set and before it is used to do real job, the parameters
+scope should be extended. As this project was about CI/CD, more emphasis was put
+on having the project utilizes tools like GitHub, dvc+S3 and Heroku than on how well
+to configure the model
