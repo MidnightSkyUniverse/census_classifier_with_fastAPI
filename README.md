@@ -159,5 +159,6 @@ creates a big mess. I also provided dvc_dag_outs_dot
 * I added alias generator to Pydantic config
 * I load now models asynchornously in FastAPI. I had to modity my test_fastapi.py for that
 * I added a test to FastAPI tests that checks reutnr code other than 200
-* I updated other screenshots as requested
+* I updated other screenshots as requested. For POST I added live_post_from_cmd to show execution 
+from command line
 
