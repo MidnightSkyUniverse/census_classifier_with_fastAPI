@@ -1,3 +1,6 @@
+![name-shield]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
 ## Censuse data analyes
 
 This project has been written for Udaicty degree in DevOps.
@@ -150,15 +153,8 @@ the checks have to pass on GitHub.
 Project Link: https://github.com/MidnightSkyUniverse/census_classifier_with_fastAPI
 
 
-## For Udacity Team
-Comments to first review
-* I created pre-commit hooks that among others run flake8 commands
-* I added dvc_dag_out_1 and dvc_dag_out_2 since the putput is too large and redirecting it to file
-creates a big mess. I also provided dvc_dag_outs_dot
-* I updated ethical consideration and caveats in Model Card
-* I added alias generator to Pydantic config
-* I load now models asynchornously in FastAPI. I had to modity my test_fastapi.py for that
-* I added a test to FastAPI tests that checks reutnr code other than 200
-* I updated other screenshots as requested. For POST I added live_post_from_cmd to show execution 
-from command line
-
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[name-shield]: https://img.shields.io/badge/Author-Ali%20Binkowska-blueviolet?style=for-the-badge
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/alibinkowska
